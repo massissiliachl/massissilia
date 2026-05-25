@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHALAL Massissilia | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0A0A0C;
+            --card-bg: rgba(18, 18, 22, 0.6);
+            --accent-gold: #E5A93C;
+            --accent-gradient: linear-gradient(135deg, #F3C66F, #C78D28);
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --nav-bg: rgba(10, 10, 12, 0.7);
+            --glow-shadow: rgba(229, 169, 60, 0.15);
+            --modal-overlay: rgba(5, 5, 6, 0.8);
+            --input-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #F8FAFC;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --accent-gold: #C78D28;
+            --accent-gradient: linear-gradient(135deg, #C78D28, #A16F1A);
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border-color: rgba(15, 23, 42, 0.08);
+            --nav-bg: rgba(248, 250, 252, 0.8);
+            --glow-shadow: rgba(199, 141, 40, 0.1);
+            --modal-overlay: rgba(15, 23, 42, 0.4);
+            --input-bg: rgba(15, 23, 42, 0.02);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(229, 169, 60, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(199, 141, 40, 0.04) 0%, transparent 45%);
+            opacity: 0.8;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            backdrop-filter: blur(12px);
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; color: var(--text-main); }
+        .logo span { color: var(--accent-gold); }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text-main); }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--accent-gold); transform: scale(1.05); }
+        .theme-toggle .fa-sun { display: none; }
+        [data-theme="light"] .theme-toggle .fa-moon { display: none; }
+        [data-theme="light"] .theme-toggle .fa-sun { display: block; color: var(--accent-gold); }
+
+        section { padding: 6rem 8%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 3rem; letter-spacing: -0.02em; }
+        .section-title span { color: var(--accent-gold); }
+
+        .hero { min-height: 85vh; display: flex; align-items: center; }
+        .hero-container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center; width: 100%; }
+        .hero-text { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+        .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem; }
+        .hero h1 span { background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 2.5rem; }
+
+        .avatar-glowing-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: var(--border-color);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: morphing 8s ease-in-out infinite alternate;
+        }
+        .avatar-glowing-wrapper:hover { border-color: var(--accent-gold); box-shadow: 0 0 30px var(--glow-shadow); }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .avatar-glowing-wrapper:hover .profile-img { transform: scale(1.05); }
+        @keyframes morphing {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%; }
+        }
+
+        .btn-group { display: flex; gap: 1rem; }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary { background: var(--accent-gradient); color: #0A0A0C !important; }
+        .btn-primary:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 8px 20px var(--glow-shadow); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.04); transform: translateY(-2px); }
+
+        .cv-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+        @media (max-width: 900px) { .cv-grid { grid-template-columns: 1fr; } }
+
+        .profile-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+        .sidebar-section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 1rem; font-weight: 700; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .badge:hover { border-color: var(--accent-gold); background: rgba(229, 169, 60, 0.05); }
+
+        .timeline { display: flex; flex-direction: column; gap: 2rem; }
+        .timeline-item { position: relative; padding-left: 2rem; border-left: 1px solid var(--border-color); }
+        .timeline-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 7px; height: 7px; background: var(--accent-gold); border-radius: 50%; }
+        .timeline-date { font-size: 0.85rem; color: var(--accent-gold); font-weight: 600; margin-bottom: 0.25rem; }
+        .timeline-title { font-size: 1.1rem; font-weight: 600; }
+        .timeline-subtitle { font-size: 0.95rem; opacity: 0.8; margin-bottom: 0.5rem; font-style: italic; }
+        .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover { border-color: rgba(229, 169, 60, 0.4); transform: translateY(-6px); box-shadow: 0 12px 30px var(--glow-shadow); }
+        .project-media { width: 100%; height: 190px; overflow: hidden; border-bottom: 1px solid var(--border-color); background: #1a1a2e; }
+        .project-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .project-card:hover .project-media img { transform: scale(1.04); }
+        .project-content { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .project-content h4 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+        .project-content p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.2rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+        .tech-mini-badge { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; }
+        .project-link-btn { font-size: 0.85rem; text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+        .project-link-btn:hover { color: var(--accent-gold); }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-overlay);
+            backdrop-filter: blur(8px);
+        }
+        .modal-container {
+            position: relative;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            border-radius: 24px;
+            overflow-y: auto;
+            transform: translateY(30px);
+            transition: transform 0.4s;
+        }
+        .modal.active .modal-container { transform: translateY(0); }
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .modal-gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 0.8rem; padding: 1.5rem; background: rgba(0, 0, 0, 0.2); }
+        @media (max-width: 600px) { .modal-gallery { grid-template-columns: 1fr; } }
+        .modal-main-img { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; }
+        .modal-thumbs { display: flex; flex-direction: column; gap: 0.6rem; max-height: 250px; overflow-y: auto; }
+        @media (max-width: 600px) { .modal-thumbs { flex-direction: row; } }
+        .modal-thumb { width: 100%; height: 70px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: all 0.2s; }
+        @media (max-width: 600px) { .modal-thumb { width: 80px; } }
+        .modal-thumb:hover, .modal-thumb.active { opacity: 1; border-color: var(--accent-gold); }
+        .modal-video { width: 100%; border-radius: 12px; margin-bottom: 1rem; }
+        .modal-body { padding: 2rem; }
+        .modal-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; }
+        .modal-desc { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; white-space: pre-line; }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3.5rem;
+        }
+        @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; padding: 2rem; } }
+        .info-details { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .info-item { display: flex; align-items: center; gap: 1rem; }
+        .info-item .icon-wrapper {
+            width: 46px;
+            height: 46px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+        }
+        .social-links { display: flex; gap: 1rem; }
+        .social-links a {
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .social-links a:hover { color: var(--text-main); border-color: var(--accent-gold); transform: translateY(-2px); }
+        .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-control {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            outline: none;
+        }
+        .form-control:focus { border-color: var(--accent-gold); }
+        .form-status { padding: 0.8rem 1rem; border-radius: 8px; display: none; }
+        .form-status.success { display: block; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; }
+        footer { text-align: center; padding: 3rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 5%; }
+            .nav-links { display: none; }
+            section { padding: 4rem 5%; }
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-text { align-items: center; order: 2; }
+            .hero-avatar { order: 1; }
+            .avatar-glowing-wrapper { width: 240px; height: 240px; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<nav>
+    <div class="logo">Massissilia CHALAL<span></span></div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="#home">Accueil</a>
+            <a href="#cv">Parcours</a>
+            <a href="#projects">Projets</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="theme-toggle" id="themeBtn">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+</nav>
+
+<section id="home" class="hero reveal">
+    <div class="hero-container">
+        <div class="hero-text">
+            <h1>Concevoir des architectures<br><span>Logicielles & Web</span> performantes.</h1>
+            <p class="hero-sub">Ingénieure en informatique spécialisée en Génie Logiciel. Je conçois, développe et optimise des solutions technologiques adaptées, sécurisées et fiables.</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Me contacter <i class="fas fa-arrow-right"></i></a>
+                <a href="#projects" class="btn btn-outline">Voir mes réalisations</a>
+            </div>
+        </div>
+        <div class="hero-avatar">
+            <div class="avatar-glowing-wrapper">
+                <img src="massi.jpg" alt="CHALAL Massissilia" class="profile-img" onerror="this.src='https://randomuser.me/api/portraits/women/68.jpg'">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cv" class="reveal">
+    <h2 class="section-title">Parcours <span>&</span> Formations</h2>
+    <div class="cv-grid">
+        <div class="cv-sidebar">
+            <div class="profile-card">
+                <h3>CHALAL Massissilia</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Béjaïa, Algérie</p>
+                <div class="sidebar-section-title">Langages</div>
+                <div class="skills-container">
+                    <span class="badge">Java</span>
+                    <span class="badge">JavaScript</span>
+                    <span class="badge">Python</span>
+                    <span class="badge">SQL</span>
+                    <span class="badge">HTML/CSS</span>
+                </div>
+                <div class="sidebar-section-title">Outils & Logiciels</div>
+                <div class="skills-container">
+                    <span class="badge">Android Studio</span>
+                    <span class="badge">VS Code</span>
+                    <span class="badge">MySQL</span>
+                    <span class="badge">NetBeans</span>
+                    <span class="badge">Cisco PT</span>
+                </div>
+                <div class="sidebar-section-title">Langues</div>
+                <ul class="lang-list">
+                    <li><strong>Kabyle :</strong> Maternelle</li>
+                    <li><strong>Arabe :</strong> Courant</li>
+                    <li><strong>Français :</strong> Maîtrisé</li>
+                    <li><strong>Anglais :</strong> Maîtrisé</li>
+                </ul>
+            </div>
+        </div>
+        <div class="timeline">
+            <div class="sidebar-section-title">Expériences Professionnelles</div>
+            <div class="timeline-item">
+                <div class="timeline-date">2026</div>
+                <div class="timeline-title">Web Master / Assistante Informatique</div>
+                <div class="timeline-subtitle">Agence Visit Béjaïa</div>
+                <div class="timeline-desc">Conception et développement d'applications mobiles et web. Création et gestion du site internet promotionnel de l'agence touristique Visit Béjaïa.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025</div>
+                <div class="timeline-title">Technicienne / Assistante Informatique</div>
+                <div class="timeline-subtitle">Usine SYPHAX XPND</div>
+                <div class="timeline-desc">Gestion des systèmes informatiques, assistance aux utilisateurs, développement de logiciels internes.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025 (Stage)</div>
+                <div class="timeline-title">Assistante Informatique</div>
+                <div class="timeline-subtitle">Hôpital d'Akbou</div>
+                <div class="timeline-desc">Maintenance du parc informatique, gestion des comptes utilisateurs et droits d'accès.</div>
+            </div>
+            <div class="sidebar-section-title" style="margin-top: 1rem;">Diplômes & Études</div>
+            <div class="timeline-item">
+                <div class="timeline-date">2023 — 2025</div>
+                <div class="timeline-title">Master 2 en Génie Logiciel</div>
+                <div class="timeline-subtitle">Université de Béjaïa</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2019 — 2023</div>
+                <div class="timeline-title">Licence en Systèmes Informatiques</div>
+                <div class="timeline-subtitle">Université de Béjaïa</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="reveal">
+    <h2 class="section-title">Projets <span>Réalisés</span></h2>
+    <div class="projects-grid">
+        <div class="project-card" data-project="visitbejaia">
+            <div class="project-media"><img src="vbejaia.png" alt="Visit Béjaïa" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Visit+B%C3%A9ja%C3%AFa'"></div>
+            <div class="project-content">
+                <h4>Site Web Visit Béjaïa</h4>
+                <p>Plateforme touristique complète présentant les merveilles de Béjaïa.</p>
+                <div class="project-tech"><span class="tech-mini-badge">HTML/CSS</span><span class="tech-mini-badge">JavaScript</span><span class="tech-mini-badge">PHP</span><span class="tech-mini-badge">MySQL</span></div>
+                <div class="project-footer"><a href="https://visitbejaia.org/" target="_blank" class="project-link-btn"><i class="fas fa-external-link-alt"></i> Visiter le site</a><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="medicare">
+            <div class="project-media"><img src="medicar.jpg" alt="Application Médicale" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Application+M%C3%A9dicale'"></div>
+            <div class="project-content">
+                <h4>Application médicale en temps réel</h4>
+                <p>Application mobile connectée en React Native pour la prise de rendez-vous médicaux.</p>
+                <div class="project-tech"><span class="tech-mini-badge">React Native</span><span class="tech-mini-badge">Node.js</span><span class="tech-mini-badge">MySQL</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="assistantMedical">
+            <div class="project-media"><img src="a.jpg" alt="Assistant médical" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Assistant+M%C3%A9dical'"></div>
+            <div class="project-content">
+                <h4>Assistant médical virtuel</h4>
+                <p>Application mobile d'assistance médicale virtuelle avec chatbot intelligent.</p>
+                <div class="project-tech"><span class="tech-mini-badge">React Native</span><span class="tech-mini-badge">Expo</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="scolaire">
+            <div class="project-media"><img src="edu.png" alt="Gestion Scolaire" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Gestion+Scolaire'"></div>
+            <div class="project-content">
+                <h4>Plateforme de gestion scolaire</h4>
+                <p>Application web pour gérer étudiants, paiements et génération de factures PDF.</p>
+                <div class="project-tech"><span class="tech-mini-badge">React</span><span class="tech-mini-badge">Sequelize</span><span class="tech-mini-badge">MySQL</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="immobiliere">
+            <div class="project-media"><img src="imo.jpg" alt="Application Immobilière" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Immobilier'"></div>
+            <div class="project-content">
+                <h4>Application mobile immobilière</h4>
+                <p>Application pour consulter et gérer des annonces immobilières en temps réel.</p>
+                <div class="project-tech"><span class="tech-mini-badge">React Native</span><span class="tech-mini-badge">Node.js</span><span class="tech-mini-badge">MySQL</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="restauration">
+            <div class="project-media"><img src="y.png" alt="Application Restauration" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Restauration'"></div>
+            <div class="project-content">
+                <h4>App de restauration</h4>
+                <p>Application Android pour la gestion de commandes et livraisons.</p>
+                <div class="project-tech"><span class="tech-mini-badge">Android Studio</span><span class="tech-mini-badge">SQLite</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+        <div class="project-card" data-project="planning">
+            <div class="project-media"><img src="xa.jpg" alt="Planification planning" onerror="this.src='https://placehold.co/600x400/1a1a2e/gold?text=Planning'"></div>
+            <div class="project-content">
+                <h4>Planification de planning</h4>
+                <p>Application web pour gérer des plannings dynamiques avec Django.</p>
+                <div class="project-tech"><span class="tech-mini-badge">Python</span><span class="tech-mini-badge">Django</span></div>
+                <div class="project-footer"><span class="project-link-btn"><i class="fas fa-plus-circle"></i> Détails</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="projectModal">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-container">
+        <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+        <div class="modal-gallery">
+            <img src="" alt="Image principale" class="modal-main-img" id="modalMainImg">
+            <div class="modal-thumbs" id="modalThumbs"></div>
+        </div>
+        <div class="modal-body">
+            <div id="modalVideoContainer"></div>
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <div class="modal-tech" id="modalTech"></div>
+            <p class="modal-desc" id="modalDesc"></p>
+            <div class="project-links" id="modalLinks"></div>
+        </div>
+    </div>
+</div>
+
+<section id="contact" class="reveal">
+    <h2 class="section-title">Discutons de <span>Votre Projet</span></h2>
+    <div class="contact-layout">
+        <div class="contact-info">
+            <h3>Restons en contact</h3>
+            <p>Vous avez une idée de projet ? Remplissez le formulaire ou contactez-moi directement.</p>
+            <div class="info-details">
+                <div class="info-item"><div class="icon-wrapper"><i class="far fa-envelope"></i></div><a href="mailto:chalalmassissilia7@gmail.com">chalalmassissilia7@gmail.com</a></div>
+                <div class="info-item"><div class="icon-wrapper"><i class="fas fa-phone-alt"></i></div><a href="tel:+213554582722">+213 554 582 722</a></div>
+                <div class="info-item"><div class="icon-wrapper"><i class="fas fa-map-marker-alt"></i></div><span>Béjaïa, Algérie</span></div>
+            </div>
+            <div class="social-links"><a href="tel:+213554582722"><i class="fas fa-phone-alt"></i></a><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
+        </div>
+        <div><form class="contact-form" id="contactForm"><div class="form-group"><label>Nom complet</label><input type="text" id="name" class="form-control" placeholder="Ex: Jean Dupont" required></div><div class="form-group"><label>Email</label><input type="email" id="email" class="form-control" placeholder="Ex: jean.dupont@example.com" required></div><div class="form-group"><label>Sujet</label><input type="text" id="subject" class="form-control" placeholder="Ex: Proposition de projet" required></div><div class="form-group"><label>Message</label><textarea id="message" class="form-control" rows="5" placeholder="Décrivez votre projet..." required></textarea></div><div class="form-status" id="formStatus"></div><button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Envoyer <i class="far fa-paper-plane"></i></button></form></div>
+    </div>
+</section>
+
+<footer><p>© 2026 CHALAL Massissilia. Ingénieure en Informatique & Développeuse Full-Stack.</p></footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const htmlEl = document.documentElement;
+    themeBtn.addEventListener('click', () => { const current = htmlEl.getAttribute('data-theme'); htmlEl.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark'); });
+
+    const projectsData = {
+        visitbejaia: { title: "Site Web Visit Béjaïa", desc: "Plateforme touristique complète présentant les merveilles de Béjaïa.\n\n• Interface moderne et responsive\n• Système de réservation d'activités\n• Galerie photo interactive", tech: ["HTML/CSS", "JavaScript", "PHP", "MySQL"], images: ["vbejaia.png"], demo: "https://visitbejaia.org/" },
+        medicare: { title: "Application Médicale Temps Réel", desc: "Écosystème e-santé sécurisé pour la gestion des consultations.\n\n• Planification en temps réel\n• Stockage crypté des documents\n• Notifications push Firebase", tech: ["React Native", "Node.js", "MySQL", "Firebase FCM"], images: ["medicar.jpg", "med.jpg", "rappel.jpg"], video: "v.mp4" },
+        assistantMedical: { title: "Assistant médical virtuel", desc: "Application mobile d'assistance médicale virtuelle.\n\n• Chatbot médical intelligent\n• Rappels de médicaments\n• Suivi des symptômes", tech: ["React Native", "Expo"], images: ["a.jpg"], video: "chat.mp4" },
+        scolaire: { title: "Plateforme de gestion scolaire", desc: "ERP académique centralisé.\n\n• Gestion des étudiants et enseignants\n• Suivi des paiements\n• Factures PDF", tech: ["React", "Sequelize", "MySQL"], images: ["edu.png"] },
+        immobiliere: { title: "Application mobile immobilière", desc: "Application pour consulter des annonces immobilières.\n\n• Filtres avancés\n• Chat intégré\n• Favoris et notifications", tech: ["React Native", "Node.js", "MySQL"], images: ["imo.jpg", "apa.jpg", "i.jpg"] },
+        restauration: { title: "App de restauration", desc: "Application Android pour la gestion de commandes.\n\n• Menu interactif\n• Panier et paiement\n• Suivi des commandes", tech: ["Android Studio", "SQLite"], images: ["y.png"] },
+        planning: { title: "Planification de planning", desc: "Application web pour gérer des plannings dynamiques.\n\n• Calendrier interactif\n• Gestion des tâches\n• Export PDF", tech: ["Python", "Django"], images: ["xa.jpg"], video: "x.mp4" }
+    };
+
+    const modal = document.getElementById('projectModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    function openProjectModal(projectId) {
+        const data = projectsData[projectId];
+        if (!data) return;
+        document.getElementById('modalTitle').textContent = data.title;
+        document.getElementById('modalDesc').textContent = data.desc;
+        const mainImg = document.getElementById('modalMainImg');
+        const thumbsContainer = document.getElementById('modalThumbs');
+        const videoContainer = document.getElementById('modalVideoContainer');
+        videoContainer.innerHTML = '';
+        if (data.video) { videoContainer.innerHTML = `<video controls class="modal-video"><source src="${data.video}" type="video/mp4">Votre navigateur ne supporte pas la vidéo.</video>`; }
+        if (data.images && data.images.length > 0) {
+            mainImg.src = data.images[0];
+            thumbsContainer.innerHTML = '';
+            data.images.forEach((imgUrl, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgUrl;
+                thumb.className = `modal-thumb ${index === 0 ? 'active' : ''}`;
+                thumb.addEventListener('click', () => { mainImg.src = imgUrl; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); thumb.classList.add('active'); });
+                thumbsContainer.appendChild(thumb);
+            });
+        }
+        const techContainer = document.getElementById('modalTech');
+        techContainer.innerHTML = '';
+        data.tech.forEach(t => { const span = document.createElement('span'); span.className = 'badge'; span.textContent = t; techContainer.appendChild(span); });
+        const linksContainer = document.getElementById('modalLinks');
+        linksContainer.innerHTML = '';
+        if (data.demo) { linksContainer.innerHTML += `<a href="${data.demo}" class="btn btn-primary" target="_blank" style="color:#0A0A0C !important;"><i class="fas fa-external-link-alt"></i> Voir le projet</a>`; }
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+    projectCards.forEach(card => { card.addEventListener('click', (e) => { if (e.target.closest('a')) return; const projectId = card.getAttribute('data-project'); openProjectModal(projectId); }); });
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    contactForm.addEventListener('submit', function(e) { e.preventDefault(); formStatus.className = 'form-status'; formStatus.style.display = 'none'; setTimeout(() => { formStatus.textContent = "Merci ! Votre message a été envoyé avec succès."; formStatus.classList.add('success'); contactForm.reset(); }, 600); });
+
+    let presentationSpoken = false;
+    function playIntroductionVoice() { if (presentationSpoken) return; window.speechSynthesis.cancel(); const speech = new SpeechSynthesisUtterance("Bonjour, je suis Chalal Massissilia, ingénieure en informatique et développeuse full stack."); speech.lang = 'fr-FR'; window.speechSynthesis.speak(speech); presentationSpoken = true; document.removeEventListener('click', playIntroductionVoice); }
+    document.addEventListener('click', playIntroductionVoice);
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
+    reveals.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(30px)'; el.style.transition = 'all 0.8s'; observer.observe(el); });
+</script>
+</body>
+</html>
