@@ -1061,154 +1061,8 @@
             border: none;
             cursor: pointer;
         }
-        .whatsapp-float::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: #25D366;
-            z-index: -1;
-            animation: waRing 2.2s ease-out infinite;
-        }
         .whatsapp-float:hover {
             transform: translateY(-3px) scale(1.05);
-        }
-        .whatsapp-float .wa-close-icon { display: none; font-size: 1.3rem; }
-        .whatsapp-float.open .fa-whatsapp { display: none; }
-        .whatsapp-float.open .wa-close-icon { display: block; }
-        .whatsapp-float.open::before { animation: none; }
-        .wa-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #EF4444;
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            display: grid;
-            place-items: center;
-            border: 2px solid var(--bg);
-        }
-        .whatsapp-float.seen .wa-badge { display: none; }
-        @keyframes waRing {
-            0% { transform: scale(1); opacity: 0.55; }
-            100% { transform: scale(1.7); opacity: 0; }
-        }
-        .wa-bubble {
-            position: fixed;
-            right: 28px;
-            bottom: 100px;
-            width: 320px;
-            max-width: calc(100vw - 40px);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            z-index: 1500;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(16px) scale(0.96);
-            transform-origin: bottom right;
-            transition: all 0.3s ease;
-        }
-        .wa-bubble.open {
-            opacity: 1;
-            visibility: visible;
-            transform: none;
-        }
-        .wa-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 18px;
-            background: #075E54;
-            color: #fff;
-        }
-        .wa-avatar {
-            position: relative;
-            flex-shrink: 0;
-        }
-        .wa-avatar img {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        .wa-avatar::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: #25D366;
-            border: 2px solid #075E54;
-        }
-        .wa-header strong {
-            display: block;
-            font-size: 0.95rem;
-        }
-        .wa-header span {
-            font-size: 0.78rem;
-            opacity: 0.85;
-        }
-        .wa-dismiss {
-            margin-left: auto;
-            background: transparent;
-            border: none;
-            color: #fff;
-            opacity: 0.8;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .wa-dismiss:hover { opacity: 1; }
-        .wa-body {
-            padding: 20px 18px;
-            background: var(--surface-2);
-        }
-        .wa-message {
-            position: relative;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 12px 14px;
-            border-radius: 4px 14px 14px 14px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            max-width: 90%;
-        }
-        .wa-message small {
-            display: block;
-            text-align: right;
-            color: var(--muted);
-            font-size: 0.7rem;
-            margin-top: 4px;
-        }
-        .wa-start {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 0 18px 18px;
-            padding: 12px;
-            border-radius: 12px;
-            background: #25D366;
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.92rem;
-            text-decoration: none;
-            transition: background 0.25s;
-        }
-        .wa-start:hover { background: #1EBE5A; }
-        .wa-footer-space {
-            background: var(--surface-2);
-            padding-top: 0;
         }
 
         /* Reveal */
@@ -1269,7 +1123,6 @@
                 height: 50px;
                 font-size: 1.5rem;
             }
-            .wa-bubble { right: 20px; bottom: 84px; }
             .footer-inner { flex-direction: column; text-align: center; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -1515,24 +1368,9 @@
     </div>
 </footer>
 
-<div class="wa-bubble" id="waBubble" role="dialog" aria-label="Discussion WhatsApp">
-    <div class="wa-header">
-        <div class="wa-avatar"><img src="massi.jpg" alt="Massissilia Chalal"></div>
-        <div><strong>Massissilia Chalal</strong><span>Répond généralement rapidement</span></div>
-        <button class="wa-dismiss" id="waDismiss" aria-label="Fermer"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="wa-body">
-        <div class="wa-message">Bonjour 👋<br>Un projet ou une question ? Écrivez-moi directement sur WhatsApp.<small id="waTime"></small></div>
-    </div>
-    <div class="wa-footer-space">
-        <a class="wa-start" href="https://wa.me/213771836210?text=Bonjour%20Massissilia%2C%20je%20viens%20de%20votre%20portfolio." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Démarrer la discussion</a>
-    </div>
-</div>
-<button class="whatsapp-float" id="waToggle" aria-label="WhatsApp">
+<a href="https://wa.me/213771836210" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
-    <i class="fas fa-times wa-close-icon"></i>
-    <span class="wa-badge">1</span>
-</button>
+</a>
 
 <script>
     // Voice introduction - VOIX DE FEMME
@@ -1734,20 +1572,6 @@
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
     }));
-
-    // Bulle WhatsApp
-    const waBubble = document.getElementById('waBubble');
-    const waToggle = document.getElementById('waToggle');
-    const now = new Date();
-    document.getElementById('waTime').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-    function setWaBubble(open) {
-        waBubble.classList.toggle('open', open);
-        waToggle.classList.toggle('open', open);
-        waToggle.classList.add('seen');
-    }
-    waToggle.addEventListener('click', () => setWaBubble(!waBubble.classList.contains('open')));
-    document.getElementById('waDismiss').addEventListener('click', () => setWaBubble(false));
-    setTimeout(() => { if (!waToggle.classList.contains('seen')) setWaBubble(true); }, 4000);
 
     // Apparition au défilement
     const revealObserver = new IntersectionObserver((entries) => {
