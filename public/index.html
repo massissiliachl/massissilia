@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -232,11 +232,24 @@
         .btn-primary {
             background: var(--gradient);
             color: #fff;
-            box-shadow: 0 10px 24px -10px rgba(124, 92, 255, 0.7);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                0 5px 0 #4B32C3,
+                0 14px 26px -8px rgba(124, 92, 255, 0.7);
         }
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 16px 32px -12px rgba(124, 92, 255, 0.8);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                0 7px 0 #4B32C3,
+                0 20px 34px -10px rgba(124, 92, 255, 0.8);
+        }
+        .btn-primary:active {
+            transform: translateY(4px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                0 1px 0 #4B32C3,
+                0 6px 14px -6px rgba(124, 92, 255, 0.6);
         }
         .btn-outline {
             background: var(--surface);
@@ -262,7 +275,7 @@
         }
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
+            grid-template-columns: 0.85fr 1.15fr;
             gap: 64px;
             align-items: center;
         }
@@ -397,8 +410,8 @@
         .fc-2 { right: -36px; top: 40px; animation-delay: 2s; }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { translate: 0 0; }
+            50% { translate: 0 -10px; }
         }
 
         /* Tech strip */
@@ -492,15 +505,20 @@
             box-shadow: var(--shadow);
         }
         .expertise-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
             display: grid;
             place-items: center;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-size: 1.2rem;
+            background: var(--gradient);
+            color: #fff;
+            font-size: 1.3rem;
             margin-bottom: 24px;
+            box-shadow:
+                inset 0 2px 0 rgba(255, 255, 255, 0.35),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.18),
+                0 12px 24px -8px rgba(124, 92, 255, 0.65);
+            transform: translateZ(40px);
         }
         .expertise-card h3 {
             font-size: 1.2rem;
@@ -1009,6 +1027,244 @@
             border-color: var(--border-strong);
             transform: translateY(-3px);
         }
+        /* Scroll progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: var(--gradient);
+            z-index: 1100;
+            transition: width 0.1s linear;
+        }
+
+        /* Hero blobs */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-blobs {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .hero-blobs span {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            animation: blob 18s ease-in-out infinite;
+        }
+        .hero-blobs span:nth-child(1) {
+            width: 420px; height: 420px;
+            background: #A78BFA;
+            top: 8%; right: 8%;
+        }
+        .hero-blobs span:nth-child(2) {
+            width: 340px; height: 340px;
+            background: #60A5FA;
+            bottom: 5%; right: 28%;
+            animation-delay: -6s;
+        }
+        .hero-blobs span:nth-child(3) {
+            width: 300px; height: 300px;
+            background: #F472B6;
+            top: 30%; left: -6%;
+            opacity: 0.25;
+            animation-delay: -12s;
+        }
+        [data-theme="dark"] .hero-blobs span { opacity: 0.22; }
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-30px, 25px) scale(0.95); }
+        }
+
+        /* Project filters */
+        .project-filters {
+            display: inline-flex;
+            gap: 4px;
+            padding: 5px;
+            margin-bottom: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+        }
+        .filter-btn {
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 9px 20px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .filter-btn:hover { color: var(--text); }
+        .filter-btn.active {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 8px 18px -8px rgba(124, 92, 255, 0.7);
+        }
+        .project-card.is-hidden { display: none; }
+        .media-blur {
+            position: absolute;
+            inset: -30px;
+            background-size: cover;
+            background-position: center;
+            filter: blur(28px) saturate(1.3);
+            opacity: 0.55;
+        }
+        .project-media > img {
+            position: relative;
+        }
+
+        /* Contact panel */
+        .contact-panel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            padding: 72px 48px;
+            background: linear-gradient(135deg, #6D4AFF 0%, #4F8BFF 100%);
+            color: #fff;
+            box-shadow: 0 30px 60px -20px rgba(109, 74, 255, 0.55);
+        }
+        .contact-panel::before,
+        .contact-panel::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            pointer-events: none;
+        }
+        .contact-panel::before { width: 360px; height: 360px; top: -160px; right: -100px; }
+        .contact-panel::after { width: 260px; height: 260px; bottom: -140px; left: -80px; }
+        .contact-panel > * { position: relative; z-index: 1; }
+        .contact-panel .eyebrow { color: #fff; }
+        .contact-panel .eyebrow::before { background: #fff; }
+        .contact-panel .section-subtitle { color: rgba(255, 255, 255, 0.85); }
+        .contact-panel .contact-method {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            color: #fff;
+        }
+        .contact-panel .contact-method:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .contact-panel .contact-method small { color: rgba(255, 255, 255, 0.75); }
+        .contact-panel .contact-icon,
+        .contact-panel .contact-icon.whatsapp {
+            background: #fff;
+            color: #6D4AFF;
+        }
+        .contact-panel .contact-icon.whatsapp { color: #25D366; }
+        .contact-panel .social-link {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+        .contact-panel .social-link:hover {
+            background: #fff;
+            color: #6D4AFF;
+        }
+
+            background: linear-gradient(180deg, var(--text) 40%, var(--muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Language switch */
+        .lang-switch {
+            position: relative;
+        }
+        .lang-current {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: border-color 0.25s;
+        }
+        .lang-current:hover { border-color: var(--border-strong); }
+        .lang-current img,
+        .lang-option img {
+            width: 22px;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 3px;
+            box-shadow: 0 0 0 1px var(--border);
+        }
+        .lang-current .fa-chevron-down {
+            font-size: 0.65rem;
+            color: var(--muted);
+            transition: transform 0.25s;
+        }
+        .lang-switch.open .fa-chevron-down { transform: rotate(180deg); }
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 160px;
+            padding: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: all 0.2s ease;
+            z-index: 1200;
+        }
+        .lang-switch.open .lang-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+        }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .lang-option:hover,
+        .lang-option.active {
+            background: var(--surface-2);
+        }
+        .lang-option.active::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
         /* Footer */
         footer {
             border-top: 1px solid var(--border);
@@ -1068,12 +1324,12 @@
         /* Reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            translate: 0 24px;
+            transition: opacity 0.7s ease, translate 0.7s ease, transform 0.35s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .reveal.visible {
             opacity: 1;
-            transform: none;
+            translate: none;
         }
 
         /* Responsive */
@@ -1094,7 +1350,7 @@
                 grid-template-columns: 1fr;
                 gap: 56px;
             }
-            .hero-visual { max-width: 320px; }
+            .hero-visual { max-width: 260px; }
             .hero-stats { gap: 28px; }
             .nav-links {
                 display: none;
@@ -1116,6 +1372,10 @@
             .projects-grid,
             .expertise-grid { grid-template-columns: 1fr; }
             .cv-block { padding: 24px; }
+            .contact-panel { padding: 48px 20px; border-radius: 24px; }
+            .hero-blobs span { width: 240px !important; height: 240px !important; }
+            .project-filters { display: flex; width: 100%; }
+            .filter-btn { flex: 1; padding: 9px 12px; }
             .whatsapp-float {
                 bottom: 20px;
                 right: 20px;
@@ -1130,7 +1390,7 @@
                 animation: none !important;
                 transition: none !important;
             }
-            .reveal { opacity: 1; transform: none; }
+            .reveal { opacity: 1; translate: none; }
         }
     </style>
 </head>
@@ -1138,18 +1398,29 @@
 
 <div class="bg-decor"></div>
 
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <nav id="navbar">
     <div class="container nav-container">
         <a href="#home" class="logo"><span class="logo-mark">MC</span>Chalal</a>
         <div class="nav-links" id="navLinks">
-            <a href="#home">Accueil</a>
-            <a href="#expertise">Expertise</a>
-            <a href="#cv">Parcours</a>
-            <a href="#projects">Projets</a>
-            <a href="#contact">Contact</a>
+            <a href="#home" data-i18n="nav.home">Accueil</a>
+            <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
+            <a href="#cv" data-i18n="nav.cv">Parcours</a>
+            <a href="#projects" data-i18n="nav.projects">Projets</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="nav-actions">
-            <a href="#contact" class="btn btn-primary btn-sm nav-cta">Me contacter</a>
+            <a href="#contact" class="btn btn-primary btn-sm nav-cta" data-i18n="nav.cta">Me contacter</a>
+            <div class="lang-switch" id="langSwitch">
+                <button class="lang-current" id="langCurrent" aria-label="Langue / Language">
+                    <img src="https://flagcdn.com/w40/fr.png" alt="" id="langFlag"><span id="langCode">FR</span><i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="lang-menu" id="langMenu">
+                    <button class="lang-option" data-lang="fr"><img src="https://flagcdn.com/w40/fr.png" alt="">Français</button>
+                    <button class="lang-option" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="">English</button>
+                </div>
+            </div>
             <button class="theme-toggle" id="themeBtn" aria-label="Changer de thème"><i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none"></i></button>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -1159,23 +1430,24 @@
 </nav>
 
 <section id="home" class="hero">
+    <div class="hero-blobs"><span></span><span></span><span></span></div>
     <div class="container hero-grid">
         <div class="hero-text">
-            <span class="status-badge"><span class="status-dot"></span>Disponible pour de nouveaux projets</span>
-            <p class="hero-hello">Bonjour, je suis <strong>Massissilia Chalal</strong></p>
-            <h1>Ingénieure logiciel &amp; développeuse <span class="gradient-text" style="white-space:nowrap">Full-Stack</span> Web et Mobile.</h1>
-            <p class="hero-desc">Spécialisée en Génie Logiciel, je conçois, développe et optimise des solutions technologiques adaptées, sécurisées et fiables, du site web à l'application mobile.</p>
+            <span class="status-badge"><span class="status-dot"></span><span data-i18n="hero.status">Disponible pour de nouveaux projets</span></span>
+            <p class="hero-hello" data-i18n="hero.hello">Bonjour, je suis <strong>Massissilia Chalal</strong></p>
+            <h1 data-i18n="hero.title">Ingénieure logiciel &amp; développeuse <span class="gradient-text" style="white-space:nowrap">Full-Stack</span> Web et Mobile.</h1>
+            <p class="hero-desc" data-i18n="hero.desc">Spécialisée en Génie Logiciel, je conçois, développe et optimise des solutions technologiques adaptées, sécurisées et fiables, du site web à l'application mobile.</p>
             <div class="btn-group">
-                <a href="#projects" class="btn btn-primary">Voir mes réalisations <i class="fas fa-arrow-right"></i></a>
-                <a href="#contact" class="btn btn-outline"><i class="far fa-envelope"></i> Me contacter</a>
+                <a href="#projects" class="btn btn-primary" data-i18n="hero.btnWork">Voir mes réalisations <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="btn btn-outline" data-i18n="hero.btnContact"><i class="far fa-envelope"></i> Me contacter</a>
             </div>
             <div class="hero-stats">
-                <div><div class="stat-value" id="statProjects">9</div><div class="stat-label">Projets réalisés</div></div>
-                <div><div class="stat-value">3</div><div class="stat-label">Expériences professionnelles</div></div>
-                <div><div class="stat-value">Master 2</div><div class="stat-label">Génie Logiciel</div></div>
+                <div><div class="stat-value" id="statProjects">9</div><div class="stat-label" data-i18n="stat.projects">Projets réalisés</div></div>
+                <div><div class="stat-value">3</div><div class="stat-label" data-i18n="stat.exp">Expériences professionnelles</div></div>
+                <div><div class="stat-value">Master 2</div><div class="stat-label" data-i18n="stat.degree">Génie Logiciel</div></div>
             </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual" style="order:-1">
             <div class="portrait">
                 <img src="massi.jpg" alt="CHALAL Massissilia" onerror="this.src='https://randomuser.me/api/portraits/women/68.jpg'">
             </div>
@@ -1185,7 +1457,7 @@
             </div>
             <div class="floating-card fc-2">
                 <div class="fc-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div><strong>Béjaïa</strong><span>Algérie</span></div>
+                <div><strong>Béjaïa</strong><span data-i18n="hero.country">Algérie</span></div>
             </div>
         </div>
     </div>
@@ -1212,26 +1484,26 @@
     <div class="container">
         <div class="section-header reveal">
             <span class="eyebrow">Expertise</span>
-            <h2 class="section-title">Ce que je fais</h2>
-            <p class="section-subtitle">De la conception à la mise en production, j'accompagne vos projets numériques avec rigueur et sens du détail.</p>
+            <h2 class="section-title" data-i18n="expertise.title">Ce que je <span class="gradient-text">fais</span></h2>
+            <p class="section-subtitle" data-i18n="expertise.sub">De la conception à la mise en production, j'accompagne vos projets numériques avec rigueur et sens du détail.</p>
         </div>
         <div class="expertise-grid">
             <div class="expertise-card reveal">
                 <div class="expertise-icon"><i class="fas fa-laptop-code"></i></div>
-                <h3>Développement Web</h3>
-                <p>Sites vitrines, plateformes touristiques et applications web modernes, rapides et responsives.</p>
+                <h3 data-i18n="exp.web.title">Développement Web</h3>
+                <p data-i18n="exp.web.desc">Sites vitrines, plateformes touristiques et applications web modernes, rapides et responsives.</p>
                 <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Django</span></div>
             </div>
             <div class="expertise-card reveal">
                 <div class="expertise-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Applications mobiles</h3>
-                <p>Applications Android et multiplateformes intuitives, avec notifications et temps réel.</p>
+                <h3 data-i18n="exp.mobile.title">Applications mobiles</h3>
+                <p data-i18n="exp.mobile.desc">Applications Android et multiplateformes intuitives, avec notifications et temps réel.</p>
                 <div class="tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Android Studio</span></div>
             </div>
             <div class="expertise-card reveal">
                 <div class="expertise-icon"><i class="fas fa-server"></i></div>
-                <h3>Back-end &amp; bases de données</h3>
-                <p>API, espaces d'administration et modélisation de données fiables et sécurisées.</p>
+                <h3 data-i18n="exp.back.title">Back-end &amp; bases de données</h3>
+                <p data-i18n="exp.back.desc">API, espaces d'administration et modélisation de données fiables et sécurisées.</p>
                 <div class="tags"><span class="tag">Node.js</span><span class="tag">MySQL</span><span class="tag">Firebase</span><span class="tag">SQLite</span></div>
             </div>
         </div>
@@ -1241,61 +1513,61 @@
 <section id="cv">
     <div class="container">
         <div class="section-header reveal">
-            <span class="eyebrow">Parcours</span>
-            <h2 class="section-title">Expériences &amp; formation</h2>
-            <p class="section-subtitle">Un parcours entre ingénierie logicielle, développement web et accompagnement digital.</p>
+            <span class="eyebrow" data-i18n="nav.cv">Parcours</span>
+            <h2 class="section-title" data-i18n="cv.title">Expériences &amp; <span class="gradient-text">formation</span></h2>
+            <p class="section-subtitle" data-i18n="cv.sub">Un parcours entre ingénierie logicielle, développement web et accompagnement digital.</p>
         </div>
         <div class="cv-grid">
             <div class="cv-block reveal">
-                <h3 class="cv-block-title"><i class="fas fa-briefcase"></i>Expériences &amp; formation</h3>
+                <h3 class="cv-block-title"><i class="fas fa-briefcase"></i><span data-i18n="cv.block">Expériences &amp; formation</span></h3>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <div class="timeline-head"><div class="timeline-title">Web Master / Assistante</div><div class="timeline-date">2026</div></div>
-                        <div class="timeline-subtitle">Agence de voyage Visit Béjaïa</div>
-                        <div class="timeline-desc">Travail au sein d'une agence de voyage : création et gestion de sites touristiques (Visit Béjaïa, Algeria Travel), accompagnement digital et support aux activités de réservation.</div>
+                        <div class="timeline-head"><div class="timeline-title" data-i18n="t1.title">Web Master / Assistante</div><div class="timeline-date">2026</div></div>
+                        <div class="timeline-subtitle" data-i18n="t1.sub">Agence de voyage Visit Béjaïa</div>
+                        <div class="timeline-desc" data-i18n="t1.desc">Travail au sein d'une agence de voyage : création et gestion de sites touristiques (Visit Béjaïa, Algeria Travel), accompagnement digital et support aux activités de réservation.</div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-head"><div class="timeline-title">Technicienne Informatique</div><div class="timeline-date">2025</div></div>
-                        <div class="timeline-subtitle">Usine SYPHAX XPND</div>
-                        <div class="timeline-desc">Gestion des systèmes et développement d'outils internes.</div>
+                        <div class="timeline-head"><div class="timeline-title" data-i18n="t2.title">Technicienne Informatique</div><div class="timeline-date">2025</div></div>
+                        <div class="timeline-subtitle" data-i18n="t2.sub">Usine SYPHAX XPND</div>
+                        <div class="timeline-desc" data-i18n="t2.desc">Gestion des systèmes et développement d'outils internes.</div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-head"><div class="timeline-title">Assistante Informatique</div><div class="timeline-date">2025 · Stage</div></div>
-                        <div class="timeline-subtitle">Hôpital d'Akbou</div>
-                        <div class="timeline-desc">Maintenance du parc informatique.</div>
+                        <div class="timeline-head"><div class="timeline-title" data-i18n="t3.title">Assistante Informatique</div><div class="timeline-date" data-i18n="t3.date">2025 · Stage</div></div>
+                        <div class="timeline-subtitle" data-i18n="t3.sub">Hôpital d'Akbou</div>
+                        <div class="timeline-desc" data-i18n="t3.desc">Maintenance du parc informatique.</div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-head"><div class="timeline-title">Master 2 Génie Logiciel</div><div class="timeline-date">2023 – 2025</div></div>
-                        <div class="timeline-subtitle">Université de Béjaïa</div>
+                        <div class="timeline-head"><div class="timeline-title" data-i18n="t4.title">Master 2 Génie Logiciel</div><div class="timeline-date">2023 – 2025</div></div>
+                        <div class="timeline-subtitle" data-i18n="uni">Université de Béjaïa</div>
                     </div>
                     <div class="timeline-item">
-                        <div class="timeline-head"><div class="timeline-title">Licence Systèmes Informatiques</div><div class="timeline-date">2019 – 2023</div></div>
-                        <div class="timeline-subtitle">Université de Béjaïa</div>
+                        <div class="timeline-head"><div class="timeline-title" data-i18n="t5.title">Licence Systèmes Informatiques</div><div class="timeline-date">2019 – 2023</div></div>
+                        <div class="timeline-subtitle" data-i18n="uni">Université de Béjaïa</div>
                     </div>
                 </div>
             </div>
             <div>
                 <div class="cv-block reveal">
-                    <h3 class="cv-block-title"><i class="fas fa-layer-group"></i>Compétences</h3>
+                    <h3 class="cv-block-title"><i class="fas fa-layer-group"></i><span data-i18n="skills.title">Compétences</span></h3>
                     <div class="skill-group">
                         <div class="skill-group-title">Front-end</div>
                         <div class="tags"><span class="skill-badge">HTML</span><span class="skill-badge">CSS</span><span class="skill-badge">JavaScript</span><span class="skill-badge">React</span></div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title">Back-end &amp; bases de données</div>
+                        <div class="skill-group-title" data-i18n="skills.back">Back-end &amp; bases de données</div>
                         <div class="tags"><span class="skill-badge">Node.js</span><span class="skill-badge">MongoDB</span><span class="skill-badge">SQL</span><span class="skill-badge">Supabase</span></div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title">Outils</div>
+                        <div class="skill-group-title" data-i18n="skills.tools">Outils</div>
                         <div class="tags"><span class="skill-badge">GitHub</span></div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title">Langues</div>
+                        <div class="skill-group-title" data-i18n="skills.langs">Langues</div>
                         <ul class="lang-list">
-                            <li>Kabyle<span>Maternelle</span></li>
-                            <li>Arabe<span>Courant</span></li>
-                            <li>Français<span>Maîtrisé</span></li>
-                            <li>Anglais<span>Maîtrisé</span></li>
+                            <li data-i18n="lang.kab">Kabyle<span>Maternelle</span></li>
+                            <li data-i18n="lang.ar">Arabe<span>Courant</span></li>
+                            <li data-i18n="lang.fr">Français<span>Maîtrisé</span></li>
+                            <li data-i18n="lang.en">Anglais<span>Maîtrisé</span></li>
                         </ul>
                     </div>
                 </div>
@@ -1307,9 +1579,14 @@
 <section id="projects">
     <div class="container">
         <div class="section-header reveal">
-            <span class="eyebrow">Réalisations</span>
-            <h2 class="section-title">Projets réalisés</h2>
-            <p class="section-subtitle">Une sélection de plateformes web et d'applications mobiles conçues de bout en bout.</p>
+            <span class="eyebrow" data-i18n="projects.eyebrow">Réalisations</span>
+            <h2 class="section-title" data-i18n="projects.title">Projets <span class="gradient-text">réalisés</span></h2>
+            <p class="section-subtitle" data-i18n="projects.sub">Une sélection de plateformes web et d'applications mobiles conçues de bout en bout.</p>
+        </div>
+        <div class="project-filters reveal" id="projectFilters">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tous</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="mobile">Mobile</button>
         </div>
         <div class="projects-grid" id="projectsGrid"></div>
     </div>
@@ -1326,31 +1603,33 @@
 
 <section id="contact">
     <div class="container">
-        <div class="section-header center reveal">
+        <div class="contact-panel reveal">
+        <div class="section-header center">
             <span class="eyebrow">Contact</span>
-            <h2 class="section-title">Discutons de votre projet</h2>
-            <p class="section-subtitle">Une idée, une mission ou une collaboration ? Je vous réponds rapidement.</p>
+            <h2 class="section-title" data-i18n="contact.title">Discutons de votre projet</h2>
+            <p class="section-subtitle" data-i18n="contact.sub">Une idée, une mission ou une collaboration ? Je vous réponds rapidement.</p>
         </div>
         <div class="contact-methods">
-            <a class="contact-method reveal" href="https://wa.me/213771836210" target="_blank" rel="noopener">
+            <a class="contact-method" href="https://wa.me/213771836210" target="_blank" rel="noopener">
                 <div class="contact-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
                 <small>WhatsApp</small>
                 <span>0771 83 62 10</span>
             </a>
-            <a class="contact-method reveal" href="tel:+213782451973">
+            <a class="contact-method" href="tel:+213782451973">
                 <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-                <small>Téléphone</small>
+                <small data-i18n="contact.phone">Téléphone</small>
                 <span>0782 45 19 73</span>
             </a>
-            <a class="contact-method reveal" href="mailto:chalalmassissilia7@gmail.com">
+            <a class="contact-method" href="mailto:chalalmassissilia7@gmail.com">
                 <div class="contact-icon"><i class="far fa-envelope"></i></div>
-                <small>E-mail</small>
+                <small data-i18n="contact.email">E-mail</small>
                 <span>chalalmassissilia7@gmail.com</span>
             </a>
         </div>
-        <div class="social-links center reveal">
+        <div class="social-links center">
             <a href="https://github.com/massissiliachl" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/massissilia-chalal-328578411" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
         </div>
     </div>
 </section>
@@ -1359,12 +1638,12 @@
     <div class="container footer-inner">
         <a href="#home" class="logo"><span class="logo-mark">MC</span>Chalal</a>
         <div class="footer-links">
-            <a href="#expertise">Expertise</a>
-            <a href="#cv">Parcours</a>
-            <a href="#projects">Projets</a>
-            <a href="#contact">Contact</a>
+            <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
+            <a href="#cv" data-i18n="nav.cv">Parcours</a>
+            <a href="#projects" data-i18n="nav.projects">Projets</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
-        <p class="footer-copy">© 2026 CHALAL Massissilia · Ingénieure en Informatique &amp; Développeuse Full-Stack</p>
+        <p class="footer-copy" data-i18n="footer.copy">© 2026 CHALAL Massissilia · Ingénieure en Informatique &amp; Développeuse Full-Stack</p>
     </div>
 </footer>
 
@@ -1376,13 +1655,13 @@
     // Voice introduction - VOIX DE FEMME
     let presentationSpoken = false;
 
-    function getFrenchFemaleVoice() {
+    function getFemaleVoice(langCode) {
         return new Promise((resolve) => {
             const voices = window.speechSynthesis.getVoices();
-            const frenchFemale = voices.find(voice =>
-                voice.lang === 'fr-FR' && voice.name.toLowerCase().includes('female')
+            const female = voices.find(voice =>
+                voice.lang === langCode && voice.name.toLowerCase().includes('female')
             );
-            resolve(frenchFemale || voices.find(voice => voice.lang === 'fr-FR') || voices[0]);
+            resolve(female || voices.find(voice => voice.lang === langCode) || voices[0]);
         });
     }
 
@@ -1391,13 +1670,17 @@
 
         window.speechSynthesis.cancel();
 
-        const message = "Bonjour, je suis Massissilia Chalal, ingénieure en informatique et développeuse full stack. Bienvenue sur mon portfolio.";
+        const isEnglish = currentLang === 'en';
+        const langCode = isEnglish ? 'en-US' : 'fr-FR';
+        const message = isEnglish
+            ? "Hello, I'm Massissilia Chalal, a computer engineer and full stack developer. Welcome to my portfolio."
+            : "Bonjour, je suis Massissilia Chalal, ingénieure en informatique et développeuse full stack. Bienvenue sur mon portfolio.";
         const utterance = new SpeechSynthesisUtterance(message);
-        utterance.lang = 'fr-FR';
+        utterance.lang = langCode;
         utterance.rate = 0.95;
         utterance.pitch = 1.2;
 
-        const voice = await getFrenchFemaleVoice();
+        const voice = await getFemaleVoice(langCode);
         if (voice) utterance.voice = voice;
 
         utterance.onend = () => { presentationSpoken = true; };
@@ -1430,65 +1713,166 @@
         const current = htmlEl.getAttribute('data-theme');
         if (current === 'dark') {
             htmlEl.setAttribute('data-theme', 'light');
-            moonIcon.style.display = 'none';
-            sunIcon.style.display = 'block';
-        } else {
-            htmlEl.setAttribute('data-theme', 'dark');
             moonIcon.style.display = 'block';
             sunIcon.style.display = 'none';
+        } else {
+            htmlEl.setAttribute('data-theme', 'dark');
+            moonIcon.style.display = 'none';
+            sunIcon.style.display = 'block';
         }
     });
 
     // Données des projets
     const projectsData = {
-        algeriatravel: { title: "Algeria Travel", desc: "Plateforme de voyage et tourisme en Algérie : découverte de destinations, hôtels, activités et réservations.\n\n• Interface moderne, responsive et multilingue (Français, English, العربية)\n• Recherche (destination, dates, voyageurs, activités)\n• Destinations populaires, circuits et offres\n• Blog voyage, favoris et contact WhatsApp", tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["algeria-travel-1.png", "algeria-travel-2.png", "algeria-travel-3.png", "algeria-travel-4.png", "algeria-travel-5.png"], demo: "https://algeriatravel.org/" },
-        partenaire: { title: "Espace partenaire Algeria Travel", desc: "Plateforme de partenariat permettant aux hôteliers de gérer leurs établissements et de suivre leurs réservations.\n\n• Connexion sécurisée des partenaires\n• Tableau de bord avec statistiques et évolution des réservations\n• Gestion des hébergements et des chambres\n• Tarifs, disponibilités et suivi des réservations", tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["partenaire-1.png", "partenaire-2.png", "partenaire-3.png"], slideshow: true },
-        visitbejaia: { title: "Site Web Visit Béjaïa", desc: "Plateforme touristique complète présentant les merveilles de Béjaïa.\n\n• Interface moderne et responsive\n• Système de réservation d'activités\n• Galerie photo interactive", tech: ["HTML/CSS", "JavaScript", "PHP", "MySQL"], images: ["vbejaia.png"], demo: "https://visitbejaia.org/" },
-        medicare: { title: "Application Médicale Temps Réel", desc: "Écosystème e-santé sécurisé pour la gestion des consultations.\n\n• Planification en temps réel\n• Stockage crypté des documents\n• Notifications push Firebase", tech: ["React Native", "Node.js", "MySQL", "Firebase"], images: ["medicar.jpg", "med.jpg", "rappel.jpg"], video: "v.mp4" },
-        assistantMedical: { title: "Assistant médical virtuel", desc: "Application mobile d'assistance médicale virtuelle.\n\n• Chatbot médical intelligent\n• Rappels de médicaments\n• Suivi des symptômes", tech: ["React Native", "Expo"], images: ["a.jpg"], video: "chat.mp4" },
-        scolaire: { title: "Plateforme de gestion scolaire", desc: "ERP académique centralisé.\n\n• Gestion des étudiants et enseignants\n• Suivi des paiements\n• Factures PDF", tech: ["React", "Sequelize", "MySQL"], images: ["edu.png"] },
-        immobiliere: { title: "Application mobile immobilière", desc: "Application pour consulter et gérer des annonces immobilières.\n\n• Filtres avancés par prix/localisation\n• Chat intégré acheteurs/vendeurs\n• Favoris et notifications", tech: ["React Native", "Node.js", "MySQL"], images: ["imo.jpg", "apa.jpg", "i.jpg"] },
-        restauration: { title: "App de restauration", desc: "Application Android pour la gestion de commandes.\n\n• Menu interactif avec catégories\n• Panier et paiement intégré\n• Suivi des commandes en temps réel", tech: ["Android Studio", "SQLite"], images: ["y.png"] },
-        planning: { title: "Planification de planning", desc: "Application web pour gérer des plannings dynamiques.\n\n• Calendrier interactif\n• Gestion des tâches et ressources\n• Export PDF des plannings", tech: ["Python", "Django"], images: ["xa.jpg"], video: "x.mp4" }
+        algeriatravel: { title: "Algeria Travel", desc: "Plateforme de voyage et tourisme en Algérie : découverte de destinations, hôtels, activités et réservations.\n\n• Interface moderne, responsive et multilingue (Français, English, العربية)\n• Recherche (destination, dates, voyageurs, activités)\n• Destinations populaires, circuits et offres\n• Blog voyage, favoris et contact WhatsApp", en: { title: "Algeria Travel", desc: "Travel and tourism platform for Algeria: discover destinations, hotels, activities and bookings.\n\n• Modern, responsive, multilingual interface (French, English, Arabic)\n• Search (destination, dates, travelers, activities)\n• Popular destinations, tours and offers\n• Travel blog, favorites and WhatsApp contact" }, tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["algeria-travel-1.png", "algeria-travel-2.png", "algeria-travel-3.png", "algeria-travel-4.png", "algeria-travel-5.png"], demo: "https://algeriatravel.org/" },
+        partenaire: { title: "Espace partenaire Algeria Travel", desc: "Plateforme de partenariat permettant aux hôteliers de gérer leurs établissements et de suivre leurs réservations.\n\n• Connexion sécurisée des partenaires\n• Tableau de bord avec statistiques et évolution des réservations\n• Gestion des hébergements et des chambres\n• Tarifs, disponibilités et suivi des réservations", en: { title: "Algeria Travel Partner Portal", desc: "Partner platform allowing hoteliers to manage their properties and track their bookings.\n\n• Secure partner login\n• Dashboard with statistics and booking trends\n• Property and room management\n• Rates, availability and booking tracking" }, tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["partenaire-1.png", "partenaire-2.png", "partenaire-3.png"], slideshow: true },
+        visitbejaia: { title: "Site Web Visit Béjaïa", desc: "Plateforme touristique complète présentant les merveilles de Béjaïa.\n\n• Interface moderne et responsive\n• Système de réservation d'activités\n• Galerie photo interactive", en: { title: "Visit Béjaïa Website", desc: "Complete tourism platform showcasing the wonders of Béjaïa.\n\n• Modern and responsive interface\n• Activity booking system\n• Interactive photo gallery" }, tech: ["HTML/CSS", "JavaScript", "PHP", "MySQL"], images: ["vbejaia.png"], demo: "https://visitbejaia.org/" },
+        medicare: { title: "Application Médicale Temps Réel", desc: "Écosystème e-santé sécurisé pour la gestion des consultations.\n\n• Planification en temps réel\n• Stockage crypté des documents\n• Notifications push Firebase", en: { title: "Real-Time Medical App", desc: "Secure e-health ecosystem for managing consultations.\n\n• Real-time scheduling\n• Encrypted document storage\n• Firebase push notifications" }, tech: ["React Native", "Node.js", "MySQL", "Firebase"], images: ["medicar.jpg", "med.jpg", "rappel.jpg"], video: "v.mp4" },
+        assistantMedical: { title: "Assistant médical virtuel", desc: "Application mobile d'assistance médicale virtuelle.\n\n• Chatbot médical intelligent\n• Rappels de médicaments\n• Suivi des symptômes", en: { title: "Virtual Medical Assistant", desc: "Mobile app providing virtual medical assistance.\n\n• Smart medical chatbot\n• Medication reminders\n• Symptom tracking" }, tech: ["React Native", "Expo"], images: ["a.jpg"], video: "chat.mp4" },
+        scolaire: { title: "Plateforme de gestion scolaire", desc: "ERP académique centralisé.\n\n• Gestion des étudiants et enseignants\n• Suivi des paiements\n• Factures PDF", en: { title: "School Management Platform", desc: "Centralized academic ERP.\n\n• Student and teacher management\n• Payment tracking\n• PDF invoices" }, tech: ["React", "Sequelize", "MySQL"], images: ["edu.png"] },
+        immobiliere: { title: "Application mobile immobilière", desc: "Application pour consulter et gérer des annonces immobilières.\n\n• Filtres avancés par prix/localisation\n• Chat intégré acheteurs/vendeurs\n• Favoris et notifications", en: { title: "Real Estate Mobile App", desc: "App to browse and manage real estate listings.\n\n• Advanced filters by price/location\n• Built-in buyer/seller chat\n• Favorites and notifications" }, tech: ["React Native", "Node.js", "MySQL"], images: ["imo.jpg", "apa.jpg", "i.jpg"] },
+        restauration: { title: "App de restauration", desc: "Application Android pour la gestion de commandes.\n\n• Menu interactif avec catégories\n• Panier et paiement intégré\n• Suivi des commandes en temps réel", en: { title: "Restaurant App", desc: "Android app for order management.\n\n• Interactive menu with categories\n• Cart and integrated payment\n• Real-time order tracking" }, tech: ["Android Studio", "SQLite"], images: ["y.png"] },
+        planning: { title: "Planification de planning", desc: "Application web pour gérer des plannings dynamiques.\n\n• Calendrier interactif\n• Gestion des tâches et ressources\n• Export PDF des plannings", en: { title: "Schedule Planner", desc: "Web app to manage dynamic schedules.\n\n• Interactive calendar\n• Task and resource management\n• PDF schedule export" }, tech: ["Python", "Django"], images: ["xa.jpg"], video: "x.mp4" }
     };
+
+    // Traductions
+    const translations = {
+        en: {
+            'nav.home': 'Home',
+            'nav.expertise': 'Expertise',
+            'nav.cv': 'Background',
+            'nav.projects': 'Projects',
+            'nav.contact': 'Contact',
+            'nav.cta': 'Contact me',
+            'hero.status': 'Available for new projects',
+            'hero.hello': "Hi, I'm <strong>Massissilia Chalal</strong>",
+            'hero.title': 'Software engineer &amp; <span class="gradient-text" style="white-space:nowrap">Full-Stack</span> Web and Mobile developer.',
+            'hero.desc': 'Specialized in Software Engineering, I design, build and optimize tailored, secure and reliable technology solutions, from websites to mobile apps.',
+            'hero.btnWork': 'View my work <i class="fas fa-arrow-right"></i>',
+            'hero.btnContact': '<i class="far fa-envelope"></i> Contact me',
+            'hero.country': 'Algeria',
+            'stat.projects': 'Completed projects',
+            'stat.exp': 'Professional experiences',
+            'stat.degree': 'Software Engineering',
+            'expertise.title': 'What I <span class="gradient-text">do</span>',
+            'expertise.sub': 'From design to production, I support your digital projects with rigor and attention to detail.',
+            'exp.web.title': 'Web development',
+            'exp.web.desc': 'Showcase websites, tourism platforms and modern, fast and responsive web applications.',
+            'exp.mobile.title': 'Mobile apps',
+            'exp.mobile.desc': 'Intuitive Android and cross-platform apps with notifications and real-time features.',
+            'exp.back.title': 'Back-end &amp; databases',
+            'exp.back.desc': 'APIs, admin dashboards and reliable, secure data modeling.',
+            'cv.title': 'Experience &amp; <span class="gradient-text">education</span>',
+            'cv.sub': 'A path between software engineering, web development and digital support.',
+            'cv.block': 'Experience &amp; education',
+            't1.title': 'Webmaster / Assistant',
+            't1.sub': 'Visit Béjaïa travel agency',
+            't1.desc': 'Working at a travel agency: building and managing tourism websites (Visit Béjaïa, Algeria Travel), digital support and assistance with booking operations.',
+            't2.title': 'IT Technician',
+            't2.sub': 'SYPHAX XPND factory',
+            't2.desc': 'Systems management and development of internal tools.',
+            't3.title': 'IT Assistant',
+            't3.date': '2025 · Internship',
+            't3.sub': 'Akbou Hospital',
+            't3.desc': 'IT equipment maintenance.',
+            't4.title': "Master's degree in Software Engineering",
+            't5.title': "Bachelor's degree in Computer Systems",
+            'uni': 'University of Béjaïa',
+            'skills.title': 'Skills',
+            'skills.back': 'Back-end &amp; databases',
+            'skills.tools': 'Tools',
+            'skills.langs': 'Languages',
+            'lang.kab': 'Kabyle<span>Native</span>',
+            'lang.ar': 'Arabic<span>Fluent</span>',
+            'lang.fr': 'French<span>Proficient</span>',
+            'lang.en': 'English<span>Proficient</span>',
+            'projects.eyebrow': 'Portfolio',
+            'projects.title': 'Featured <span class="gradient-text">projects</span>',
+            'projects.sub': 'A selection of web platforms and mobile apps built end to end.',
+            'filter.all': 'All',
+            'contact.title': "Let's talk about your project",
+            'contact.sub': "An idea, a mission or a collaboration? I'll get back to you quickly.",
+            'contact.phone': 'Phone',
+            'contact.email': 'Email',
+            'footer.copy': '© 2026 CHALAL Massissilia · Computer Engineer &amp; Full-Stack Developer'
+        }
+    };
+    const uiText = {
+        fr: { details: 'Voir les détails', live: 'Site en ligne', visit: 'Visiter le site', noVideo: 'Vidéo non disponible' },
+        en: { details: 'View details', live: 'Live site', visit: 'Visit website', noVideo: 'Video not available' }
+    };
+    const i18nElements = document.querySelectorAll('[data-i18n]');
+    i18nElements.forEach(el => { el.dataset.i18nFr = el.innerHTML; });
+    let currentLang = localStorage.getItem('lang') === 'en' ? 'en' : 'fr';
+
+    function projectText(p) {
+        return currentLang === 'en' && p.en ? p.en : p;
+    }
 
     // Rendu des cartes projets
     const projectsGrid = document.getElementById('projectsGrid');
     const projectKeys = ['algeriatravel', 'partenaire', 'visitbejaia', 'medicare', 'assistantMedical', 'scolaire', 'immobiliere', 'restauration', 'planning'];
+    const projectCategories = { algeriatravel: 'web', partenaire: 'web', visitbejaia: 'web', medicare: 'mobile', assistantMedical: 'mobile', scolaire: 'web', immobiliere: 'mobile', restauration: 'mobile', planning: 'web' };
     document.getElementById('statProjects').textContent = projectKeys.length;
+    let slideshowTimers = [];
+    let currentFilter = 'all';
 
-    projectsGrid.innerHTML = projectKeys.map((key, idx) => {
-        const p = projectsData[key];
-        const number = String(idx + 1).padStart(2, '0');
-        const fallback = `this.src='https://placehold.co/600x375/191D27/7C5CFF?text=${encodeURIComponent(p.title)}'`;
-        const media = p.slideshow
-            ? `<div class="project-media slideshow"><span class="project-index">${number}</span>${p.images.map((src, i) => `<img src="${src}" alt="${p.title}" class="${i === 0 ? 'active' : ''}">`).join('')}<div class="slide-dots">${p.images.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')}</div></div>`
-            : `<div class="project-media"><span class="project-index">${number}</span><img src="${p.images[0]}" alt="${p.title}" loading="lazy" onerror="${fallback}"></div>`;
-        return `<div class="project-card reveal" data-project="${key}">
-            ${media}
-            <div class="project-content">
-                <h3>${p.title}</h3>
-                <p>${p.desc.split('\n')[0]}</p>
-                <div class="project-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
-                <div class="project-footer">
-                    <span class="project-link details">Voir les détails <i class="fas fa-arrow-right"></i></span>
-                    ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="project-link live" onclick="event.stopPropagation()">Site en ligne <i class="fas fa-external-link-alt"></i></a>` : ''}
+    function renderProjects(alreadyVisible) {
+        slideshowTimers.forEach(clearInterval);
+        slideshowTimers = [];
+        const ui = uiText[currentLang];
+        projectsGrid.innerHTML = projectKeys.map((key, idx) => {
+            const p = projectsData[key];
+            const text = projectText(p);
+            const number = String(idx + 1).padStart(2, '0');
+            const fallback = `this.src='https://placehold.co/600x375/191D27/7C5CFF?text=${encodeURIComponent(text.title)}'`;
+            const media = p.slideshow
+                ? `<div class="project-media slideshow"><span class="project-index">${number}</span>${p.images.map((src, i) => `<img src="${src}" alt="${text.title}" class="${i === 0 ? 'active' : ''}">`).join('')}<div class="slide-dots">${p.images.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')}</div></div>`
+                : `<div class="project-media"><span class="project-index">${number}</span><div class="media-blur" style="background-image:url('${p.images[0]}')"></div><img src="${p.images[0]}" alt="${text.title}" loading="lazy" onerror="${fallback}"></div>`;
+            const hidden = currentFilter !== 'all' && projectCategories[key] !== currentFilter ? ' is-hidden' : '';
+            return `<div class="project-card reveal${alreadyVisible ? ' visible' : ''}${hidden}" data-project="${key}" data-category="${projectCategories[key]}">
+                ${media}
+                <div class="project-content">
+                    <h3>${text.title}</h3>
+                    <p>${text.desc.split('\n')[0]}</p>
+                    <div class="project-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                    <div class="project-footer">
+                        <span class="project-link details">${ui.details} <i class="fas fa-arrow-right"></i></span>
+                        ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="project-link live">${ui.live} <i class="fas fa-external-link-alt"></i></a>` : ''}
+                    </div>
                 </div>
-            </div>
-        </div>`;
-    }).join('');
+            </div>`;
+        }).join('');
 
-    document.querySelectorAll('.project-media.slideshow').forEach(media => {
-        const slides = media.querySelectorAll('img');
-        const dots = media.querySelectorAll('.slide-dots span');
-        let current = 0;
-        setInterval(() => {
-            slides[current].classList.remove('active');
-            dots[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
-            dots[current].classList.add('active');
-        }, 3000);
+        projectsGrid.querySelectorAll('.project-media.slideshow').forEach(media => {
+            const slides = media.querySelectorAll('img');
+            const dots = media.querySelectorAll('.slide-dots span');
+            let current = 0;
+            slideshowTimers.push(setInterval(() => {
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
+            }, 3000));
+        });
+    }
+
+    projectsGrid.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        const card = e.target.closest('.project-card');
+        if (card) openModal(card.dataset.project);
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.classList.toggle('is-hidden', currentFilter !== 'all' && card.dataset.category !== currentFilter);
+            });
+        });
     });
 
     // Duplique la liste pour un défilement continu
@@ -1503,17 +1887,19 @@
     function openModal(projectId) {
         const data = projectsData[projectId];
         if (!data) return;
-        document.getElementById('modalTitle').innerHTML = data.title;
-        document.getElementById('modalDesc').innerHTML = data.desc;
+        const text = projectText(data);
+        const ui = uiText[currentLang];
+        document.getElementById('modalTitle').innerHTML = text.title;
+        document.getElementById('modalDesc').innerHTML = text.desc;
         const mainImg = document.getElementById('modalMainImg');
         const thumbsContainer = document.getElementById('modalThumbs');
         const videoContainer = document.getElementById('modalVideoContainer');
         videoContainer.innerHTML = '';
-        if (data.video) videoContainer.innerHTML = `<video controls class="modal-video"><source src="${data.video}" type="video/mp4">Vidéo non disponible</video>`;
+        if (data.video) videoContainer.innerHTML = `<video controls class="modal-video"><source src="${data.video}" type="video/mp4">${ui.noVideo}</video>`;
         thumbsContainer.innerHTML = '';
         if (data.images && data.images.length) {
             mainImg.src = data.images[0];
-            mainImg.alt = data.title;
+            mainImg.alt = text.title;
             if (data.images.length > 1) {
                 data.images.forEach((url, idx) => {
                     const thumb = document.createElement('img');
@@ -1530,7 +1916,7 @@
         data.tech.forEach(t => { const span = document.createElement('span'); span.className = 'skill-badge'; span.textContent = t; techContainer.appendChild(span); });
         const linksContainer = document.getElementById('modalLinks');
         linksContainer.innerHTML = '';
-        if (data.demo) linksContainer.innerHTML += `<a href="${data.demo}" class="btn btn-primary" target="_blank" rel="noopener">Visiter le site <i class="fas fa-external-link-alt"></i></a>`;
+        if (data.demo) linksContainer.innerHTML += `<a href="${data.demo}" class="btn btn-primary" target="_blank" rel="noopener">${ui.visit} <i class="fas fa-external-link-alt"></i></a>`;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -1541,12 +1927,43 @@
         if (video) video.pause();
     }
 
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', (e) => { if (e.target.closest('a')) return; openModal(card.dataset.project); });
-    });
     modalClose.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', closeModal);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // Langue
+    const langSwitch = document.getElementById('langSwitch');
+    const flags = { fr: 'https://flagcdn.com/w40/fr.png', en: 'https://flagcdn.com/w40/gb.png' };
+
+    function applyLanguage(lang, alreadyRendered) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+        i18nElements.forEach(el => {
+            const key = el.dataset.i18n;
+            el.innerHTML = lang === 'en' && translations.en[key] ? translations.en[key] : el.dataset.i18nFr;
+        });
+        document.getElementById('langFlag').src = flags[lang];
+        document.getElementById('langCode').textContent = lang.toUpperCase();
+        document.querySelectorAll('.lang-option').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+        renderProjects(alreadyRendered);
+    }
+
+    document.getElementById('langCurrent').addEventListener('click', (e) => {
+        e.stopPropagation();
+        langSwitch.classList.toggle('open');
+    });
+    document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            langSwitch.classList.remove('open');
+            if (opt.dataset.lang !== currentLang) applyLanguage(opt.dataset.lang, true);
+        });
+    });
+    document.addEventListener('click', (e) => {
+        if (!langSwitch.contains(e.target)) langSwitch.classList.remove('open');
+    });
+
+    applyLanguage(currentLang, false);
 
     // Navbar scroll effect + lien actif
     const nav = document.getElementById('navbar');
@@ -1554,6 +1971,8 @@
     const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href')));
     function onScroll() {
         nav.classList.toggle('scrolled', window.scrollY > 30);
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('scrollProgress').style.width = (maxScroll > 0 ? window.scrollY / maxScroll * 100 : 0) + '%';
         let currentIdx = 0;
         sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= 120) currentIdx = i; });
         navAnchors.forEach((a, i) => a.classList.toggle('active', i === currentIdx));
