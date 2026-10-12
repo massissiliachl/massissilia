@@ -1,77 +1,106 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>CHALAL Massissilia | Portfolio Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>CHALAL Massissilia | Ingénieure Logiciel & Développeuse Full-Stack</title>
+    <meta name="description" content="Portfolio de Massissilia Chalal, ingénieure en Génie Logiciel et développeuse Full-Stack Web & Mobile basée à Béjaïa, Algérie.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         :root {
-            --bg-dark: #0A0A0F;
-            --bg-card: rgba(18, 18, 28, 0.8);
-            --accent-primary: #8B5CF6;
-            --accent-secondary: #EC4899;
-            --accent-gradient: linear-gradient(135deg, #8B5CF6, #EC4899, #F59E0B);
-            --text-white: #FFFFFF;
-            --text-gray: #A1A1AA;
-            --border-light: rgba(255, 255, 255, 0.08);
+            --bg: #0B0D12;
+            --bg-alt: #0F1218;
+            --surface: #13161E;
+            --surface-2: #191D27;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --text: #ECEEF3;
+            --muted: #9AA1B1;
+            --accent: #7C5CFF;
+            --accent-2: #4F8BFF;
+            --accent-soft: rgba(124, 92, 255, 0.12);
+            --gradient: linear-gradient(135deg, #7C5CFF 0%, #4F8BFF 100%);
+            --nav-bg: rgba(11, 13, 18, 0.72);
+            --shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+            --radius: 18px;
+            --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
         }
 
         [data-theme="light"] {
-            --bg-dark: #F4F4F9;
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --text-white: #18181B;
-            --text-gray: #52525B;
-            --border-light: rgba(0, 0, 0, 0.08);
+            --bg: #F7F8FB;
+            --bg-alt: #FFFFFF;
+            --surface: #FFFFFF;
+            --surface-2: #F1F3F8;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-strong: rgba(15, 23, 42, 0.16);
+            --text: #0F172A;
+            --muted: #5B6474;
+            --accent-soft: rgba(124, 92, 255, 0.09);
+            --nav-bg: rgba(247, 248, 251, 0.8);
+            --shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.18);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-white);
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
-            line-height: 1.6;
-            transition: all 0.4s ease;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
         }
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
         /* Background */
-        .bg-glow {
+        .bg-decor {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(600px circle at 15% 0%, rgba(124, 92, 255, 0.14), transparent 60%),
+                radial-gradient(500px circle at 90% 20%, rgba(79, 139, 255, 0.10), transparent 60%);
         }
-        .glow-orb {
+        .bg-decor::after {
+            content: '';
             position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: glowPulse 6s ease-in-out infinite;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse at top, black 10%, transparent 65%);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 10%, transparent 65%);
+            opacity: 0.6;
         }
-        .orb-1 { background: #8B5CF6; top: -200px; left: -200px; }
-        .orb-2 { background: #EC4899; bottom: -200px; right: -200px; animation-delay: 2s; }
 
         /* Navigation */
         nav {
@@ -79,73 +108,149 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1rem 6%;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 10, 15, 0.7);
-            border-bottom: 1px solid var(--border-light);
             z-index: 1000;
+            padding: 18px 0;
             transition: all 0.3s ease;
         }
         nav.scrolled {
-            padding: 0.7rem 6%;
-            background: rgba(10, 10, 15, 0.95);
+            padding: 12px 0;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(16px);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border-bottom: 1px solid var(--border);
         }
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 24px;
         }
         .logo {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
             font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 1.15rem;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--gradient);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px -6px rgba(124, 92, 255, 0.6);
         }
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            align-items: center;
+            gap: 4px;
+            padding: 6px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
         }
         .nav-links a {
-            color: var(--text-gray);
+            color: var(--muted);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 999px;
+            transition: all 0.25s;
         }
-        .nav-links a:hover {
-            color: #8B5CF6;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .theme-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-light);
+            background: var(--surface);
+            border: 1px solid var(--border);
             width: 40px;
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
             transition: all 0.3s;
-            color: var(--text-white);
+            color: var(--text);
         }
         .theme-toggle:hover {
-            transform: scale(1.05);
-            border-color: #8B5CF6;
+            border-color: var(--border-strong);
         }
         .hamburger {
             display: none;
             flex-direction: column;
-            gap: 6px;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            align-items: center;
             cursor: pointer;
         }
         .hamburger span {
-            width: 28px;
+            width: 18px;
             height: 2px;
-            background: var(--text-white);
+            background: var(--text);
+            border-radius: 2px;
             transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Buttons */
+        .btn {
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 10px 24px -10px rgba(124, 92, 255, 0.7);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px -12px rgba(124, 92, 255, 0.8);
+        }
+        .btn-outline {
+            background: var(--surface);
+            border-color: var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+        }
+        .btn-sm {
+            padding: 0.6rem 1.1rem;
+            font-size: 0.85rem;
+            border-radius: 10px;
         }
 
         /* Hero */
@@ -153,309 +258,565 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 6% 4rem;
+            padding: 140px 0 80px;
         }
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 0.9fr;
-            gap: 4rem;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 64px;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
         }
-        .hero-badge {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: #8B5CF6;
-            margin-bottom: 1.5rem;
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px 6px 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22C55E;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+        }
+        .hero-hello {
+            font-size: 1.05rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .hero-hello strong {
+            color: var(--text);
+            font-weight: 600;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-size: clamp(2.4rem, 5vw, 4rem);
             font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
+            margin-bottom: 24px;
         }
         .gradient-text {
-            background: var(--accent-gradient);
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         .hero-desc {
             font-size: 1.1rem;
-            color: var(--text-gray);
-            max-width: 550px;
-            margin-bottom: 2rem;
+            color: var(--muted);
+            max-width: 560px;
+            margin-bottom: 36px;
         }
         .btn-group {
             display: flex;
-            gap: 1rem;
+            gap: 12px;
             flex-wrap: wrap;
         }
-        .btn {
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            border: none;
-            font-size: 0.9rem;
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
         }
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: white;
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 6px;
         }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--muted);
         }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text-white);
+        .hero-grid > *,
+        .cv-grid > *,
+        .contact-grid > * {
+            min-width: 0;
         }
-        .btn-outline:hover {
-            border-color: #8B5CF6;
-            transform: translateY(-3px);
-        }
-        .hero-avatar {
+        .hero-visual {
             position: relative;
-        }
-        .avatar-wrapper {
-            position: relative;
+            max-width: 400px;
             width: 100%;
-            max-width: 350px;
             margin: 0 auto;
         }
-        .avatar-img {
+        .portrait {
+            position: relative;
+            border-radius: 28px;
+            padding: 6px;
+            background: linear-gradient(160deg, rgba(124, 92, 255, 0.7), rgba(79, 139, 255, 0.25) 50%, transparent 80%);
+            box-shadow: var(--shadow);
+        }
+        .portrait img {
             width: 100%;
-            border-radius: 35% 65% 65% 35% / 35% 45% 55% 65%;
-            overflow: hidden;
-            border: 2px solid rgba(139, 92, 246, 0.3);
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border-radius: 22px;
+            display: block;
+            background: var(--surface);
+        }
+        .floating-card {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            font-size: 0.85rem;
+            white-space: nowrap;
             animation: float 6s ease-in-out infinite;
         }
-        .avatar-img img {
-            width: 100%;
-            height: auto;
+        .floating-card .fc-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+        .floating-card strong {
             display: block;
+            font-size: 0.88rem;
+        }
+        .floating-card span {
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+        .fc-1 { left: -48px; bottom: 64px; }
+        .fc-2 { right: -36px; top: 40px; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* Section commune */
+        /* Tech strip */
+        .tech-strip {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-alt);
+            padding: 22px 0;
+            overflow: hidden;
+        }
+        .marquee {
+            display: flex;
+            gap: 56px;
+            width: max-content;
+            animation: marquee 35s linear infinite;
+        }
+        .marquee span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .marquee i {
+            font-size: 1.2rem;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Sections */
         section {
-            padding: 5rem 6%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 110px 0;
         }
         .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
+            max-width: 640px;
+            margin-bottom: 56px;
         }
-        .section-tag {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: #8B5CF6;
-            margin-bottom: 1rem;
+        .section-header.center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+        .eyebrow::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--gradient);
         }
         .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
+            font-size: clamp(1.9rem, 4vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 16px;
         }
-        .section-title span {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 1.05rem;
         }
 
-        /* CV Grid */
-        .cv-grid {
+        /* Expertise */
+        .expertise-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
-        @media (max-width: 900px) {
-            .cv-grid {
-                grid-template-columns: 1fr;
-            }
+        .expertise-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.3s ease;
         }
-        .profile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
+        .expertise-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
         }
-        .sidebar-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #8B5CF6;
-            margin: 1.5rem 0 1rem 0;
-            font-weight: 700;
+        .expertise-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 24px;
         }
-        .skills {
+        .expertise-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .expertise-card p {
+            color: var(--muted);
+            font-size: 0.93rem;
+            margin-bottom: 20px;
+        }
+
+        /* Tags */
+        .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 6px;
         }
-        .skill-badge {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            padding: 0.3rem 0.8rem;
+        .tag, .skill-badge, .tech-tag {
+            display: inline-flex;
+            align-items: center;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 4px 10px;
             border-radius: 8px;
-            font-size: 0.75rem;
-            transition: all 0.3s;
+            font-size: 0.76rem;
+            font-weight: 500;
         }
-        .lang-list {
-            list-style: none;
+
+        /* Parcours */
+        #cv {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
-        .lang-list li {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-gray);
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 32px;
+        }
+        .cv-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+        .cv-block + .cv-block {
+            margin-top: 24px;
+        }
+        .cv-block-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+        }
+        .cv-block-title i {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 0.95rem;
         }
         .timeline {
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
         }
         .timeline-item {
             position: relative;
-            padding-left: 1.8rem;
-            border-left: 2px solid rgba(139, 92, 246, 0.3);
+            padding-left: 32px;
         }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -6px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            background: #8B5CF6;
+            left: 0;
+            top: 6px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--accent);
         }
-        .timeline-date {
-            font-size: 0.8rem;
-            color: #8B5CF6;
-            font-weight: 600;
+        .timeline-item:first-child::before {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .timeline-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .timeline-title {
-            font-size: 1rem;
+            font-family: var(--font-heading);
+            font-size: 1.02rem;
+            font-weight: 700;
+        }
+        .timeline-date {
+            font-size: 0.76rem;
             font-weight: 600;
-            margin: 0.2rem 0;
+            color: var(--muted);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            padding: 2px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
         }
         .timeline-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            margin-bottom: 0.3rem;
+            font-size: 0.88rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin: 4px 0 6px;
         }
         .timeline-desc {
-            font-size: 0.85rem;
-            color: var(--text-gray);
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .skill-group + .skill-group {
+            margin-top: 22px;
+        }
+        .skill-group-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .lang-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .lang-list li {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 14px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .lang-list li span {
+            font-size: 0.76rem;
+            font-weight: 400;
+            color: var(--muted);
         }
 
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.35s ease;
         }
         .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-6px);
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow);
         }
         .project-media {
+            position: relative;
             width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            aspect-ratio: 16 / 10;
+            background: var(--surface-2);
             overflow: hidden;
+            border-bottom: 1px solid var(--border);
         }
         .project-media img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             display: block;
-            transition: transform 0.5s ease;
-            background: #0f0f1a;
+            transition: transform 0.6s ease;
         }
         .project-card:hover .project-media img {
-            transform: scale(1.03);
+            transform: scale(1.04);
+        }
+        .project-media.slideshow img {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.6s ease;
+        }
+        .project-media.slideshow img.active {
+            opacity: 1;
+        }
+        .slide-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 2;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+        }
+        .slide-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transition: all 0.3s;
+        }
+        .slide-dots span.active {
+            background: #fff;
+            width: 16px;
+            border-radius: 6px;
+        }
+        .project-index {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            backdrop-filter: blur(6px);
         }
         .project-content {
-            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 24px;
         }
         .project-content h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.12rem;
+            margin-bottom: 8px;
         }
         .project-content p {
-            color: var(--text-gray);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
+            gap: 6px;
+            margin-bottom: 20px;
         }
-        .tech-tag {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.7rem;
+        .project-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
         }
         .project-link {
-            font-size: 0.85rem;
+            font-size: 0.86rem;
+            font-weight: 600;
             text-decoration: none;
-            color: var(--text-white);
+            color: var(--muted);
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: color 0.3s;
-            margin-right: 1rem;
+            gap: 8px;
+            transition: color 0.25s;
         }
-        .project-link:hover {
-            color: #8B5CF6;
+        .project-link:hover,
+        .project-card:hover .project-link.details {
+            color: var(--text);
+        }
+        .project-link.live {
+            color: var(--accent);
+        }
+        .project-link.live:hover {
+            color: var(--accent-2);
         }
 
         /* Modal */
         .modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 24px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
@@ -466,412 +827,635 @@
         }
         .modal-overlay {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
+            inset: 0;
+            background: rgba(5, 6, 10, 0.75);
+            backdrop-filter: blur(10px);
         }
         .modal-container {
             position: relative;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-light);
+            background: var(--surface);
+            border: 1px solid var(--border);
             width: 100%;
-            max-width: 750px;
-            max-height: 85vh;
-            border-radius: 28px;
+            max-width: 820px;
+            max-height: 88vh;
+            border-radius: 22px;
             overflow-y: auto;
-            transform: translateY(30px);
-            transition: transform 0.4s;
+            transform: translateY(24px) scale(0.98);
+            transition: transform 0.35s ease;
+            box-shadow: var(--shadow);
         }
         .modal.active .modal-container {
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            width: 36px;
-            height: 36px;
+            top: 16px;
+            right: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
+            display: grid;
+            place-items: center;
+            color: var(--text);
+            font-size: 1rem;
             z-index: 10;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
         .modal-close:hover {
-            background: #8B5CF6;
+            border-color: var(--border-strong);
             transform: rotate(90deg);
         }
         .modal-gallery {
             display: flex;
-            gap: 0.8rem;
-            padding: 1.5rem;
-            overflow-x: auto;
-            background: rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            gap: 12px;
+            padding: 24px;
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
         }
         .modal-main-img {
             width: 100%;
-            max-height: 300px;
+            max-height: 380px;
             object-fit: contain;
-            border-radius: 16px;
+            border-radius: 12px;
+        }
+        .modal-thumbs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
         }
         .modal-thumb {
-            width: 80px;
-            height: 70px;
-            object-fit: contain;
-            border-radius: 10px;
+            width: 76px;
+            height: 60px;
+            flex-shrink: 0;
+            object-fit: cover;
+            border-radius: 8px;
             cursor: pointer;
             border: 2px solid transparent;
-            opacity: 0.6;
+            opacity: 0.55;
             transition: all 0.2s;
-            background: #1a1a2e;
+            background: var(--surface);
         }
+        .modal-thumb:hover { opacity: 0.85; }
         .modal-thumb.active {
             opacity: 1;
-            border-color: #8B5CF6;
+            border-color: var(--accent);
         }
         .modal-video {
             width: 100%;
-            border-radius: 16px;
-            margin-top: 0.5rem;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
         .modal-body {
-            padding: 1.5rem;
+            padding: 28px 32px 32px;
         }
         .modal-title {
             font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         .modal-desc {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 1rem 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 20px 0 24px;
             white-space: pre-line;
         }
 
         /* Contact */
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 2.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 28px;
-            padding: 2.5rem;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 32px;
         }
-        @media (max-width: 800px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
+        .contact-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px;
         }
-        .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .contact-card.highlight::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 92, 255, 0.25), transparent 70%);
+            pointer-events: none;
+        }
+        .contact-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .contact-card > p {
+            color: var(--muted);
+            font-size: 0.95rem;
         }
         .contact-details {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 12px;
+            margin: 28px 0;
         }
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 14px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+        a.contact-item:hover {
+            border-color: var(--border-strong);
+            transform: translateX(4px);
         }
         .contact-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8B5CF6;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background: var(--accent-soft);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+        }
+        .contact-item small {
+            display: block;
+            font-size: 0.74rem;
+            color: var(--muted);
+        }
+        .contact-item div > span {
+            font-size: 0.92rem;
+            font-weight: 500;
+            word-break: break-word;
         }
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 10px;
             flex-wrap: wrap;
         }
         .social-link {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            color: var(--text-gray);
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            transition: all 0.25s;
+            color: var(--muted);
             text-decoration: none;
         }
         .social-link:hover {
-            border-color: #8B5CF6;
-            color: #8B5CF6;
+            color: var(--text);
+            border-color: var(--border-strong);
             transform: translateY(-3px);
         }
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 16px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .form-field label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 8px;
         }
         .form-input, .form-textarea {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            padding: 0.9rem 1.2rem;
-            color: var(--text-white);
+            width: 100%;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            color: var(--text);
             font-family: inherit;
+            font-size: 0.93rem;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.25s;
+        }
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: var(--muted);
+            opacity: 0.7;
         }
         .form-input:focus, .form-textarea:focus {
-            border-color: #8B5CF6;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
         }
         .form-textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 140px;
         }
+        .form-status {
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
         footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-gray);
-            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-alt);
+            padding: 40px 0;
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.25s;
+        }
+        .footer-links a:hover {
+            color: var(--text);
+        }
+        .footer-copy {
+            color: var(--muted);
+            font-size: 0.85rem;
         }
 
         /* WhatsApp Floating Button */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            width: 60px;
-            height: 60px;
+            bottom: 28px;
+            right: 28px;
+            background: #25D366;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+            display: grid;
+            place-items: center;
+            font-size: 1.7rem;
             color: white;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 10px 25px -6px rgba(37, 211, 102, 0.55);
             z-index: 100;
             transition: all 0.3s ease;
             text-decoration: none;
-            animation: pulse 2s infinite;
         }
-
         .whatsapp-float:hover {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, #128C7E, #075E54);
-            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+            transform: translateY(-3px) scale(1.05);
         }
-
         .whatsapp-tooltip {
             position: absolute;
-            right: 70px;
-            background: var(--bg-dark);
-            color: var(--text-white);
-            padding: 5px 12px;
-            border-radius: 20px;
+            right: 68px;
+            background: var(--surface);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
             font-weight: 500;
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border);
         }
-
         .whatsapp-float:hover .whatsapp-tooltip {
             opacity: 1;
             visibility: visible;
-            transform: translateX(-5px);
+            transform: translateX(-4px);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .expertise-grid { grid-template-columns: 1fr 1fr; }
+            .fc-1 { left: -16px; }
+            .fc-2 { right: -12px; }
+        }
+        @media (max-width: 900px) {
+            .cv-grid,
+            .contact-grid { grid-template-columns: 1fr; }
+        }
         @media (max-width: 768px) {
+            section { padding: 80px 0; }
+            .hero { padding: 120px 0 64px; min-height: auto; }
             .hero-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
+                gap: 56px;
             }
-            .hero-desc {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .btn-group {
-                justify-content: center;
-            }
+            .hero-visual { max-width: 320px; }
+            .hero-stats { gap: 28px; }
             .nav-links {
                 display: none;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 24px;
+                right: 24px;
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 16px;
+                padding: 8px;
+                box-shadow: var(--shadow);
             }
-            .hamburger {
-                display: flex;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            section {
-                padding: 3rem 5%;
-            }
+            .nav-links.open { display: flex; }
+            .nav-links a { border-radius: 10px; padding: 12px 16px; }
+            .nav-container { position: relative; }
+            .hamburger { display: flex; }
+            .nav-cta { display: none; }
+            .projects-grid,
+            .expertise-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .cv-block, .contact-card { padding: 24px; }
             .whatsapp-float {
                 bottom: 20px;
                 right: 20px;
                 width: 50px;
                 height: 50px;
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
-            .whatsapp-tooltip {
-                display: none;
+            .whatsapp-tooltip { display: none; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
             }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-glow">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-</div>
+<div class="bg-decor"></div>
 
 <nav id="navbar">
-    <div class="nav-container">
-        <div class="logo">CHALAL<span>.</span></div>
-        <div class="hamburger" id="hamburger">
-            <span></span><span></span><span></span>
-        </div>
+    <div class="container nav-container">
+        <a href="#home" class="logo"><span class="logo-mark">MC</span>Chalal</a>
         <div class="nav-links" id="navLinks">
             <a href="#home">Accueil</a>
+            <a href="#expertise">Expertise</a>
             <a href="#cv">Parcours</a>
             <a href="#projects">Projets</a>
             <a href="#contact">Contact</a>
         </div>
-        <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none"></i></button>
+        <div class="nav-actions">
+            <a href="#contact" class="btn btn-primary btn-sm nav-cta">Me contacter</a>
+            <button class="theme-toggle" id="themeBtn" aria-label="Changer de thème"><i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none"></i></button>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </div>
 </nav>
 
 <section id="home" class="hero">
-    <div class="hero-grid">
+    <div class="container hero-grid">
         <div class="hero-text">
-            <span class="hero-badge">✨ Ingénieure & Créatrice de contenu · 38k sur Instagram</span>
-            <h1>Concevoir des architectures <span class="gradient-text">Logicielles & Web</span> performantes.</h1>
-            <p class="hero-desc">Ingénieure en informatique spécialisée en Génie Logiciel. Je conçois, développe et optimise des solutions technologiques adaptées, sécurisées et fiables. Créatrice de contenu avec plus de 38 000 abonnés sur Instagram.</p>
+            <span class="status-badge"><span class="status-dot"></span>Disponible pour de nouveaux projets</span>
+            <p class="hero-hello">Bonjour, je suis <strong>Massissilia Chalal</strong></p>
+            <h1>Ingénieure logiciel &amp; développeuse <span class="gradient-text" style="white-space:nowrap">Full-Stack</span> Web et Mobile.</h1>
+            <p class="hero-desc">Spécialisée en Génie Logiciel, je conçois, développe et optimise des solutions technologiques adaptées, sécurisées et fiables, du site web à l'application mobile.</p>
             <div class="btn-group">
-                <a href="#contact" class="btn btn-primary">Me contacter <i class="fas fa-arrow-right"></i></a>
-                <a href="#projects" class="btn btn-outline">Voir mes réalisations</a>
+                <a href="#projects" class="btn btn-primary">Voir mes réalisations <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="btn btn-outline"><i class="far fa-envelope"></i> Me contacter</a>
+            </div>
+            <div class="hero-stats">
+                <div><div class="stat-value" id="statProjects">9</div><div class="stat-label">Projets réalisés</div></div>
+                <div><div class="stat-value">3</div><div class="stat-label">Expériences professionnelles</div></div>
+                <div><div class="stat-value">Master 2</div><div class="stat-label">Génie Logiciel</div></div>
             </div>
         </div>
-        <div class="hero-avatar">
-            <div class="avatar-wrapper">
-                <div class="avatar-img">
-                    <img src="massi.jpg" alt="CHALAL Massissilia" onerror="this.src='https://randomuser.me/api/portraits/women/68.jpg'">
-                </div>
+        <div class="hero-visual">
+            <div class="portrait">
+                <img src="massi.jpg" alt="CHALAL Massissilia" onerror="this.src='https://randomuser.me/api/portraits/women/68.jpg'">
+            </div>
+            <div class="floating-card fc-1">
+                <div class="fc-icon"><i class="fas fa-code"></i></div>
+                <div><strong>Full-Stack</strong><span>Web &amp; Mobile</span></div>
+            </div>
+            <div class="floating-card fc-2">
+                <div class="fc-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div><strong>Béjaïa</strong><span>Algérie</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="tech-strip">
+    <div class="marquee" id="marquee">
+        <span><i class="fab fa-react"></i>React</span>
+        <span><i class="fab fa-react"></i>React Native</span>
+        <span><i class="fab fa-node-js"></i>Node.js</span>
+        <span><i class="fab fa-js"></i>JavaScript</span>
+        <span><i class="fab fa-python"></i>Python / Django</span>
+        <span><i class="fab fa-php"></i>PHP</span>
+        <span><i class="fas fa-database"></i>MySQL</span>
+        <span><i class="fas fa-fire"></i>Firebase</span>
+        <span><i class="fab fa-java"></i>Java</span>
+        <span><i class="fab fa-android"></i>Android Studio</span>
+        <span><i class="fab fa-html5"></i>HTML / CSS</span>
+        <span><i class="fab fa-git-alt"></i>Git</span>
+    </div>
+</div>
+
+<section id="expertise">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Expertise</span>
+            <h2 class="section-title">Ce que je fais</h2>
+            <p class="section-subtitle">De la conception à la mise en production, j'accompagne vos projets numériques avec rigueur et sens du détail.</p>
+        </div>
+        <div class="expertise-grid">
+            <div class="expertise-card reveal">
+                <div class="expertise-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Développement Web</h3>
+                <p>Sites vitrines, plateformes touristiques et applications web modernes, rapides et responsives.</p>
+                <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Django</span></div>
+            </div>
+            <div class="expertise-card reveal">
+                <div class="expertise-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Applications mobiles</h3>
+                <p>Applications Android et multiplateformes intuitives, avec notifications et temps réel.</p>
+                <div class="tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Android Studio</span></div>
+            </div>
+            <div class="expertise-card reveal">
+                <div class="expertise-icon"><i class="fas fa-server"></i></div>
+                <h3>Back-end &amp; bases de données</h3>
+                <p>API, espaces d'administration et modélisation de données fiables et sécurisées.</p>
+                <div class="tags"><span class="tag">Node.js</span><span class="tag">MySQL</span><span class="tag">Firebase</span><span class="tag">SQLite</span></div>
             </div>
         </div>
     </div>
 </section>
 
 <section id="cv">
-    <div class="section-header">
-        <span class="section-tag">📋 Mon parcours</span>
-        <h2 class="section-title">Formations & <span>Expériences</span></h2>
-    </div>
-    <div class="cv-grid">
-        <div class="profile-card">
-            <h3>CHALAL Massissilia</h3>
-            <p><i class="fas fa-map-marker-alt"></i> Béjaïa, Algérie</p>
-            <p style="margin-top:0.6rem; color:var(--text-gray); font-size:0.95rem;"><i class="fab fa-instagram"></i> Créatrice de contenu · <a href="https://www.instagram.com/massissilia_chl/?hl=en" target="_blank" style="color:#EC4899; text-decoration:none;">@massissilia_chl</a> · 38k abonnés</p>
-            <div class="sidebar-title">💻 Langages</div>
-            <div class="skills"><span class="skill-badge">Java</span><span class="skill-badge">JavaScript</span><span class="skill-badge">Python</span><span class="skill-badge">SQL</span><span class="skill-badge">HTML/CSS</span></div>
-            <div class="sidebar-title">🛠️ Outils</div>
-            <div class="skills"><span class="skill-badge">Android Studio</span><span class="skill-badge">VS Code</span><span class="skill-badge">MySQL</span><span class="skill-badge">Git</span></div>
-            <div class="sidebar-title">🗣️ Langues</div>
-            <ul class="lang-list"><li>Kabyle - Maternelle</li><li>Arabe - Courant</li><li>Français - Maîtrisé</li><li>Anglais - Maîtrisé</li></ul>
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Parcours</span>
+            <h2 class="section-title">Expériences &amp; formation</h2>
+            <p class="section-subtitle">Un parcours entre ingénierie logicielle, développement web et accompagnement digital.</p>
         </div>
-        <div class="timeline">
-            <div class="timeline-item"><div class="timeline-date">2026</div><div class="timeline-title">Web Master / Assistante</div><div class="timeline-subtitle">Agence de voyage Visit Béjaïa</div><div class="timeline-desc">Travail au sein d'une agence de voyage : création et gestion de sites touristiques (Visit Béjaïa, Algeria Travel), accompagnement digital et support aux activités de réservation.</div></div>
-            <div class="timeline-item"><div class="timeline-date">Depuis 2023</div><div class="timeline-title">Créatrice de contenu</div><div class="timeline-subtitle"><a href="https://www.instagram.com/massissilia_chl/?hl=en" target="_blank" style="color:inherit; text-decoration:none;">Instagram @massissilia_chl</a></div><div class="timeline-desc">Création de contenu digital avec une communauté de plus de 38 000 abonnés.</div></div>
-            <div class="timeline-item"><div class="timeline-date">2025</div><div class="timeline-title">Technicienne Informatique</div><div class="timeline-subtitle">Usine SYPHAX XPND</div><div class="timeline-desc">Gestion des systèmes et développement d'outils internes.</div></div>
-            <div class="timeline-item"><div class="timeline-date">2025 (Stage)</div><div class="timeline-title">Assistante Informatique</div><div class="timeline-subtitle">Hôpital d'Akbou</div><div class="timeline-desc">Maintenance du parc informatique.</div></div>
-            <div class="timeline-item"><div class="timeline-date">2023-2025</div><div class="timeline-title">Master 2 Génie Logiciel</div><div class="timeline-subtitle">Université de Béjaïa</div></div>
-            <div class="timeline-item"><div class="timeline-date">2019-2023</div><div class="timeline-title">Licence Systèmes Informatiques</div><div class="timeline-subtitle">Université de Béjaïa</div></div>
+        <div class="cv-grid">
+            <div class="cv-block reveal">
+                <h3 class="cv-block-title"><i class="fas fa-briefcase"></i>Expériences &amp; formation</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-head"><div class="timeline-title">Web Master / Assistante</div><div class="timeline-date">2026</div></div>
+                        <div class="timeline-subtitle">Agence de voyage Visit Béjaïa</div>
+                        <div class="timeline-desc">Travail au sein d'une agence de voyage : création et gestion de sites touristiques (Visit Béjaïa, Algeria Travel), accompagnement digital et support aux activités de réservation.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-head"><div class="timeline-title">Technicienne Informatique</div><div class="timeline-date">2025</div></div>
+                        <div class="timeline-subtitle">Usine SYPHAX XPND</div>
+                        <div class="timeline-desc">Gestion des systèmes et développement d'outils internes.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-head"><div class="timeline-title">Assistante Informatique</div><div class="timeline-date">2025 · Stage</div></div>
+                        <div class="timeline-subtitle">Hôpital d'Akbou</div>
+                        <div class="timeline-desc">Maintenance du parc informatique.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-head"><div class="timeline-title">Master 2 Génie Logiciel</div><div class="timeline-date">2023 – 2025</div></div>
+                        <div class="timeline-subtitle">Université de Béjaïa</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-head"><div class="timeline-title">Licence Systèmes Informatiques</div><div class="timeline-date">2019 – 2023</div></div>
+                        <div class="timeline-subtitle">Université de Béjaïa</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="cv-block reveal">
+                    <h3 class="cv-block-title"><i class="fas fa-layer-group"></i>Compétences</h3>
+                    <div class="skill-group">
+                        <div class="skill-group-title">Langages</div>
+                        <div class="tags"><span class="skill-badge">Java</span><span class="skill-badge">JavaScript</span><span class="skill-badge">Python</span><span class="skill-badge">SQL</span><span class="skill-badge">HTML/CSS</span></div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-group-title">Outils</div>
+                        <div class="tags"><span class="skill-badge">Android Studio</span><span class="skill-badge">VS Code</span><span class="skill-badge">MySQL</span><span class="skill-badge">Git</span></div>
+                    </div>
+                    <div class="skill-group">
+                        <div class="skill-group-title">Langues</div>
+                        <ul class="lang-list">
+                            <li>Kabyle<span>Maternelle</span></li>
+                            <li>Arabe<span>Courant</span></li>
+                            <li>Français<span>Maîtrisé</span></li>
+                            <li>Anglais<span>Maîtrisé</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <section id="projects">
-    <div class="section-header">
-        <span class="section-tag">🚀 Portfolio</span>
-        <h2 class="section-title">Projets <span>Réalisés</span></h2>
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Réalisations</span>
+            <h2 class="section-title">Projets réalisés</h2>
+            <p class="section-subtitle">Une sélection de plateformes web et d'applications mobiles conçues de bout en bout.</p>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
     </div>
-    <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
 <div class="modal" id="projectModal">
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal-container">
-        <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-        <div class="modal-gallery"><img src="" alt="" class="modal-main-img" id="modalMainImg"><div id="modalThumbs" style="display:flex; gap:0.5rem; overflow-x:auto;"></div></div>
-        <div class="modal-body"><div id="modalVideoContainer"></div><h3 class="modal-title" id="modalTitle"></h3><div id="modalTech" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin:0.5rem 0"></div><p class="modal-desc" id="modalDesc"></p><div id="modalLinks"></div></div>
+        <button class="modal-close" id="modalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+        <div class="modal-gallery"><img src="" alt="" class="modal-main-img" id="modalMainImg"><div class="modal-thumbs" id="modalThumbs"></div></div>
+        <div class="modal-body"><div id="modalVideoContainer"></div><h3 class="modal-title" id="modalTitle"></h3><div class="modal-tech" id="modalTech"></div><p class="modal-desc" id="modalDesc"></p><div id="modalLinks"></div></div>
     </div>
 </div>
 
 <section id="contact">
-    <div class="section-header">
-        <span class="section-tag">📞 Contact</span>
-        <h2 class="section-title">Discutons de <span>votre projet</span></h2>
-    </div>
-    <div class="contact-grid">
-        <div class="contact-info">
-            <h3>Restons en contact</h3>
-            <p>Une idée de projet ? Contactez-moi directement.</p>
-            <div class="contact-details">
-                <div class="contact-item"><div class="contact-icon"><i class="far fa-envelope"></i></div><a href="mailto:chalalmassissilia7@gmail.com">chalalmassissilia7@gmail.com</a></div>
-                <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><a href="tel:+213771836210">+213 771 836 210</a></div>
-                <div class="contact-item"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><a href="https://wa.me/213771836210" target="_blank">0771 83 62 10 (WhatsApp)</a></div>
-                <div class="contact-item"><div class="contact-icon"><i class="fab fa-instagram"></i></div><a href="https://www.instagram.com/massissilia_chl/?hl=en" target="_blank">@massissilia_chl · 38k abonnés</a></div>
-                <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><span>Béjaïa, Algérie</span></div>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/massissiliachl" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/massissilia-chalal-328578411" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://wa.me/213771836210" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.instagram.com/massissilia_chl/?hl=en" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
+    <div class="container">
+        <div class="section-header center reveal">
+            <span class="eyebrow">Contact</span>
+            <h2 class="section-title">Discutons de votre projet</h2>
+            <p class="section-subtitle">Une idée, une mission ou une collaboration ? Je vous réponds rapidement.</p>
         </div>
-        <div>
-            <form class="contact-form" id="contactForm">
-                <input type="text" id="name" class="form-input" placeholder="Nom complet" required>
-                <input type="email" id="email" class="form-input" placeholder="Email" required>
-                <input type="text" id="subject" class="form-input" placeholder="Sujet" required>
-                <textarea id="message" class="form-textarea" placeholder="Votre message..." required></textarea>
-                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Envoyer <i class="far fa-paper-plane"></i></button>
-                <div class="form-status" id="formStatus"></div>
-            </form>
+        <div class="contact-grid">
+            <div class="contact-card highlight reveal">
+                <h3>Restons en contact</h3>
+                <p>Contactez-moi directement par e-mail, téléphone ou WhatsApp.</p>
+                <div class="contact-details">
+                    <a class="contact-item" href="mailto:chalalmassissilia7@gmail.com"><div class="contact-icon"><i class="far fa-envelope"></i></div><div><small>E-mail</small><span>chalalmassissilia7@gmail.com</span></div></a>
+                    <a class="contact-item" href="tel:+213771836210"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div><small>Téléphone</small><span>+213 771 836 210</span></div></a>
+                    <a class="contact-item" href="https://wa.me/213771836210" target="_blank" rel="noopener"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><div><small>WhatsApp</small><span>0771 83 62 10</span></div></a>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><small>Localisation</small><span>Béjaïa, Algérie</span></div></div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/massissiliachl" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/massissilia-chalal-328578411" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://wa.me/213771836210" class="social-link" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="contact-card reveal">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-field"><label for="name">Nom complet</label><input type="text" id="name" class="form-input" placeholder="Votre nom" required></div>
+                        <div class="form-field"><label for="email">E-mail</label><input type="email" id="email" class="form-input" placeholder="vous@exemple.com" required></div>
+                    </div>
+                    <div class="form-field"><label for="subject">Sujet</label><input type="text" id="subject" class="form-input" placeholder="Objet de votre message" required></div>
+                    <div class="form-field"><label for="message">Message</label><textarea id="message" class="form-textarea" placeholder="Décrivez votre projet..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Envoyer le message <i class="far fa-paper-plane"></i></button>
+                    <div class="form-status" id="formStatus"></div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
 
-<footer><p>© 2026 CHALAL Massissilia - Ingénieure en Informatique & Développeuse Full-Stack</p></footer>
+<footer>
+    <div class="container footer-inner">
+        <a href="#home" class="logo"><span class="logo-mark">MC</span>Chalal</a>
+        <div class="footer-links">
+            <a href="#expertise">Expertise</a>
+            <a href="#cv">Parcours</a>
+            <a href="#projects">Projets</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p class="footer-copy">© 2026 CHALAL Massissilia · Ingénieure en Informatique &amp; Développeuse Full-Stack</p>
+    </div>
+</footer>
 
-<!-- WhatsApp Floating Button -->
-<a href="https://wa.me/213771836210" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+<a href="https://wa.me/213771836210" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Discutons !</span>
 </a>
@@ -879,11 +1463,11 @@
 <script>
     // Voice introduction - VOIX DE FEMME
     let presentationSpoken = false;
-    
+
     function getFrenchFemaleVoice() {
         return new Promise((resolve) => {
             const voices = window.speechSynthesis.getVoices();
-            const frenchFemale = voices.find(voice => 
+            const frenchFemale = voices.find(voice =>
                 voice.lang === 'fr-FR' && voice.name.toLowerCase().includes('female')
             );
             resolve(frenchFemale || voices.find(voice => voice.lang === 'fr-FR') || voices[0]);
@@ -892,22 +1476,22 @@
 
     async function playIntroductionVoice() {
         if (presentationSpoken) return;
-        
+
         window.speechSynthesis.cancel();
-        
+
         const message = "Bonjour, je suis Massissilia Chalal, ingénieure en informatique et développeuse full stack. Bienvenue sur mon portfolio.";
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.lang = 'fr-FR';
         utterance.rate = 0.95;
         utterance.pitch = 1.2;
-        
+
         const voice = await getFrenchFemaleVoice();
         if (voice) utterance.voice = voice;
-        
+
         utterance.onend = () => { presentationSpoken = true; };
-        
+
         window.speechSynthesis.speak(utterance);
-        
+
         document.removeEventListener('click', playIntroductionVoice);
         document.removeEventListener('touchstart', playIntroductionVoice);
     }
@@ -945,7 +1529,8 @@
 
     // Données des projets
     const projectsData = {
-        algeriatravel: { title: "Algeria Travel", desc: "Plateforme de voyage et tourisme en Algérie : découverte de destinations, hôtels, activités et réservations.\n\n• Interface moderne, responsive et bilingue\n• Recherche (destination, dates, voyageurs, activités)\n• Catalogue hôtels / activités avec filtres\n• Favoris, suivi de réservation et contact WhatsApp", tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["algeria-travel-3.png", "algeria-travel-2.png", "algeria-travel-1.png"], demo: "https://algeria-travel.onrender.com/" },
+        algeriatravel: { title: "Algeria Travel", desc: "Plateforme de voyage et tourisme en Algérie : découverte de destinations, hôtels, activités et réservations.\n\n• Interface moderne, responsive et multilingue (Français, English, العربية)\n• Recherche (destination, dates, voyageurs, activités)\n• Destinations populaires, circuits et offres\n• Blog voyage, favoris et contact WhatsApp", tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["algeria-travel-1.png", "algeria-travel-2.png", "algeria-travel-3.png", "algeria-travel-4.png", "algeria-travel-5.png"], demo: "https://algeriatravel.org/" },
+        partenaire: { title: "Espace partenaire Algeria Travel", desc: "Plateforme de partenariat permettant aux hôteliers de gérer leurs établissements et de suivre leurs réservations.\n\n• Connexion sécurisée des partenaires\n• Tableau de bord avec statistiques et évolution des réservations\n• Gestion des hébergements et des chambres\n• Tarifs, disponibilités et suivi des réservations", tech: ["HTML/CSS", "JavaScript", "Node.js"], images: ["partenaire-1.png", "partenaire-2.png", "partenaire-3.png"], slideshow: true },
         visitbejaia: { title: "Site Web Visit Béjaïa", desc: "Plateforme touristique complète présentant les merveilles de Béjaïa.\n\n• Interface moderne et responsive\n• Système de réservation d'activités\n• Galerie photo interactive", tech: ["HTML/CSS", "JavaScript", "PHP", "MySQL"], images: ["vbejaia.png"], demo: "https://visitbejaia.org/" },
         medicare: { title: "Application Médicale Temps Réel", desc: "Écosystème e-santé sécurisé pour la gestion des consultations.\n\n• Planification en temps réel\n• Stockage crypté des documents\n• Notifications push Firebase", tech: ["React Native", "Node.js", "MySQL", "Firebase"], images: ["medicar.jpg", "med.jpg", "rappel.jpg"], video: "v.mp4" },
         assistantMedical: { title: "Assistant médical virtuel", desc: "Application mobile d'assistance médicale virtuelle.\n\n• Chatbot médical intelligent\n• Rappels de médicaments\n• Suivi des symptômes", tech: ["React Native", "Expo"], images: ["a.jpg"], video: "chat.mp4" },
@@ -957,27 +1542,52 @@
 
     // Rendu des cartes projets
     const projectsGrid = document.getElementById('projectsGrid');
-    const projectKeys = ['algeriatravel', 'visitbejaia', 'medicare', 'assistantMedical', 'scolaire', 'immobiliere', 'restauration', 'planning'];
-    
-    projectsGrid.innerHTML = projectKeys.map(key => {
+    const projectKeys = ['algeriatravel', 'partenaire', 'visitbejaia', 'medicare', 'assistantMedical', 'scolaire', 'immobiliere', 'restauration', 'planning'];
+    document.getElementById('statProjects').textContent = projectKeys.length;
+
+    projectsGrid.innerHTML = projectKeys.map((key, idx) => {
         const p = projectsData[key];
-        return `<div class="project-card" data-project="${key}">
-            <div class="project-media"><img src="${p.images[0]}" alt="${p.title}" onerror="this.src='https://placehold.co/600x300/1a1a2e/8B5CF6?text=${encodeURIComponent(p.title)}'"></div>
+        const number = String(idx + 1).padStart(2, '0');
+        const fallback = `this.src='https://placehold.co/600x375/191D27/7C5CFF?text=${encodeURIComponent(p.title)}'`;
+        const media = p.slideshow
+            ? `<div class="project-media slideshow"><span class="project-index">${number}</span>${p.images.map((src, i) => `<img src="${src}" alt="${p.title}" class="${i === 0 ? 'active' : ''}">`).join('')}<div class="slide-dots">${p.images.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')}</div></div>`
+            : `<div class="project-media"><span class="project-index">${number}</span><img src="${p.images[0]}" alt="${p.title}" loading="lazy" onerror="${fallback}"></div>`;
+        return `<div class="project-card reveal" data-project="${key}">
+            ${media}
             <div class="project-content">
                 <h3>${p.title}</h3>
                 <p>${p.desc.split('\n')[0]}</p>
                 <div class="project-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
-                ${p.demo ? `<a href="${p.demo}" target="_blank" class="project-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Voir le site</a>` : ''}
-                <span class="project-link"><i class="fas fa-plus-circle"></i> Détails</span>
+                <div class="project-footer">
+                    <span class="project-link details">Voir les détails <i class="fas fa-arrow-right"></i></span>
+                    ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="project-link live" onclick="event.stopPropagation()">Site en ligne <i class="fas fa-external-link-alt"></i></a>` : ''}
+                </div>
             </div>
         </div>`;
     }).join('');
+
+    document.querySelectorAll('.project-media.slideshow').forEach(media => {
+        const slides = media.querySelectorAll('img');
+        const dots = media.querySelectorAll('.slide-dots span');
+        let current = 0;
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }, 3000);
+    });
+
+    // Duplique la liste pour un défilement continu
+    const marquee = document.getElementById('marquee');
+    marquee.innerHTML += marquee.innerHTML;
 
     // Modal logic
     const modal = document.getElementById('projectModal');
     const modalOverlay = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
-    
+
     function openModal(projectId) {
         const data = projectsData[projectId];
         if (!data) return;
@@ -988,29 +1598,37 @@
         const videoContainer = document.getElementById('modalVideoContainer');
         videoContainer.innerHTML = '';
         if (data.video) videoContainer.innerHTML = `<video controls class="modal-video"><source src="${data.video}" type="video/mp4">Vidéo non disponible</video>`;
+        thumbsContainer.innerHTML = '';
         if (data.images && data.images.length) {
             mainImg.src = data.images[0];
-            thumbsContainer.innerHTML = '';
-            data.images.forEach((url, idx) => {
-                const thumb = document.createElement('img');
-                thumb.src = url;
-                thumb.className = 'modal-thumb';
-                if (idx === 0) thumb.classList.add('active');
-                thumb.onclick = () => { mainImg.src = url; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); thumb.classList.add('active'); };
-                thumbsContainer.appendChild(thumb);
-            });
+            mainImg.alt = data.title;
+            if (data.images.length > 1) {
+                data.images.forEach((url, idx) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = url;
+                    thumb.className = 'modal-thumb';
+                    if (idx === 0) thumb.classList.add('active');
+                    thumb.onclick = () => { mainImg.src = url; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); thumb.classList.add('active'); };
+                    thumbsContainer.appendChild(thumb);
+                });
+            }
         }
         const techContainer = document.getElementById('modalTech');
         techContainer.innerHTML = '';
         data.tech.forEach(t => { const span = document.createElement('span'); span.className = 'skill-badge'; span.textContent = t; techContainer.appendChild(span); });
         const linksContainer = document.getElementById('modalLinks');
         linksContainer.innerHTML = '';
-        if (data.demo) linksContainer.innerHTML += `<a href="${data.demo}" class="btn btn-primary" target="_blank">Voir le site <i class="fas fa-external-link-alt"></i></a>`;
+        if (data.demo) linksContainer.innerHTML += `<a href="${data.demo}" class="btn btn-primary" target="_blank" rel="noopener">Visiter le site <i class="fas fa-external-link-alt"></i></a>`;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
-    
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        const video = modal.querySelector('video');
+        if (video) video.pause();
+    }
+
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('click', (e) => { if (e.target.closest('a')) return; openModal(card.dataset.project); });
     });
@@ -1021,52 +1639,57 @@
     // Contact form
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
-    contactForm.addEventListener('submit', (e) => { 
-        e.preventDefault(); 
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         formStatus.style.display = 'none';
-        setTimeout(() => { 
-            formStatus.innerHTML = "✅ Message envoyé avec succès !"; 
-            formStatus.style.display = 'block'; 
-            formStatus.style.background = 'rgba(16,185,129,0.2)'; 
-            formStatus.style.padding = '0.8rem'; 
-            formStatus.style.borderRadius = '12px'; 
-            contactForm.reset(); 
-            setTimeout(() => formStatus.style.display = 'none', 3000); 
-        }, 500); 
+        setTimeout(() => {
+            formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Message envoyé avec succès !';
+            formStatus.style.display = 'block';
+            formStatus.style.background = 'rgba(34,197,94,0.12)';
+            formStatus.style.border = '1px solid rgba(34,197,94,0.3)';
+            formStatus.style.color = '#22C55E';
+            formStatus.style.padding = '0.8rem 1rem';
+            formStatus.style.borderRadius = '10px';
+            contactForm.reset();
+            setTimeout(() => formStatus.style.display = 'none', 3000);
+        }, 500);
     });
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => { 
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) nav.classList.add('scrolled');
-        else nav.classList.remove('scrolled');
-    });
-    
+    // Navbar scroll effect + lien actif
+    const nav = document.getElementById('navbar');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href')));
+    function onScroll() {
+        nav.classList.toggle('scrolled', window.scrollY > 30);
+        let currentIdx = 0;
+        sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= 120) currentIdx = i; });
+        navAnchors.forEach((a, i) => a.classList.toggle('active', i === currentIdx));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
     // Hamburger menu
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
-        if (navLinks.style.display === 'flex') {
-            navLinks.style.display = '';
-            navLinks.style.position = '';
-            navLinks.style.top = '';
-            navLinks.style.left = '';
-            navLinks.style.width = '';
-            navLinks.style.background = '';
-            navLinks.style.padding = '';
-        } else {
-            navLinks.style.display = 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '70px';
-            navLinks.style.left = '0';
-            navLinks.style.width = '100%';
-            navLinks.style.background = 'var(--bg-dark)';
-            navLinks.style.padding = '1rem';
-            navLinks.style.gap = '1rem';
-            navLinks.style.zIndex = '999';
-        }
+        hamburger.classList.toggle('open');
+        navLinks.classList.toggle('open');
     });
+    navAnchors.forEach(a => a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+    }));
+
+    // Apparition au défilement
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
