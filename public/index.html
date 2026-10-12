@@ -1655,14 +1655,44 @@
     // Voice introduction - VOIX DE FEMME
     let presentationSpoken = false;
 
-    function getFemaleVoice(langCode) {
+    const femaleVoiceNames = [
+        'female', 'femme', 'denise', 'eloise', 'vivienne', 'hortense', 'julie', 'brigitte', 'coralie', 'jacqueline',
+        'amélie', 'amelie', 'audrey', 'marie', 'aurélie', 'virginie', 'céline', 'celine', 'léa', 'lea', 'chantal',
+        'google français', 'google us english', 'google uk english female',
+        'aria', 'jenny', 'zira', 'michelle', 'ava', 'emma', 'sonia', 'libby', 'hazel', 'susan',
+        'samantha', 'karen', 'victoria', 'allison', 'serena', 'moira', 'tessa', 'fiona'
+    ];
+    const maleVoiceNames = [
+        'male', 'homme', 'paul', 'henri', 'claude', 'remy', 'rémy', 'thomas', 'nicolas', 'daniel', 'jean', 'antoine',
+        'david', 'mark', 'guy', 'george', 'ryan', 'christopher', 'eric', 'roger', 'steffan', 'alex', 'fred', 'oliver'
+    ];
+
+    function loadVoices() {
         return new Promise((resolve) => {
             const voices = window.speechSynthesis.getVoices();
-            const female = voices.find(voice =>
-                voice.lang === langCode && voice.name.toLowerCase().includes('female')
-            );
-            resolve(female || voices.find(voice => voice.lang === langCode) || voices[0]);
+            if (voices.length) return resolve(voices);
+            const timer = setTimeout(() => resolve(window.speechSynthesis.getVoices()), 1500);
+            window.speechSynthesis.addEventListener('voiceschanged', () => {
+                clearTimeout(timer);
+                resolve(window.speechSynthesis.getVoices());
+            }, { once: true });
         });
+    }
+
+    async function getFemaleVoice(langCode) {
+        const voices = await loadVoices();
+        const prefix = langCode.slice(0, 2);
+        const sameLang = voices.filter(v => v.lang.replace('_', '-').toLowerCase().startsWith(prefix));
+        const name = v => v.name.toLowerCase();
+        const isFemale = v => femaleVoiceNames.some(n => name(v).includes(n)) && !/\bmale\b/.test(name(v));
+        const isMale = v => maleVoiceNames.some(n => new RegExp(`\\b${n}\\b`).test(name(v)));
+        const exact = sameLang.filter(v => v.lang.replace('_', '-').toLowerCase() === langCode.toLowerCase());
+        return exact.find(isFemale)
+            || sameLang.find(isFemale)
+            || exact.find(v => !isMale(v))
+            || sameLang.find(v => !isMale(v))
+            || sameLang[0]
+            || null;
     }
 
     async function playIntroductionVoice() {
